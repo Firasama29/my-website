@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How My Portfolio Was Built — A Developer's Guide</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+
+    /* ── Layout ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 240px; height: 100vh;
+      background: #1e293b;
+      padding: 24px 0;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .sidebar h2 {
+      color: #94a3b8;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0 20px 8px;
+    }
+    .sidebar a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 7px 20px;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      color: #fff;
+      border-left-color: #3b82f6;
+      background: rgba(59,130,246,0.1);
+    }
+    .sidebar .logo {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 0 20px 24px;
+      border-bottom: 1px solid #334155;
+      margin-bottom: 16px;
+    }
+
+    main {
+      margin-left: 240px;
+      padding: 48px 60px;
+      max-width: 960px;
+    }
+
+    /* ── Typography ── */
+    h1 { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+    h2 { font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 48px 0 16px; padding-top: 48px; border-top: 1px solid #e2e8f0; }
+    h3 { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 28px 0 10px; }
+    h4 { font-size: 0.95rem; font-weight: 700; color: #475569; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    p  { margin-bottom: 14px; color: #334155; }
+    li { margin-bottom: 6px; color: #334155; }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+
+    .subtitle { font-size: 1.1rem; color: #64748b; margin-bottom: 32px; }
+
+    /* ── Code ── */
+    code {
+      background: #e2e8f0;
+      color: #be185d;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 20px 24px;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 16px 0;
+      font-size: 0.87rem;
+      line-height: 1.6;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+    }
+    pre .comment { color: #64748b; }
+    pre .key    { color: #7dd3fc; }
+    pre .str    { color: #86efac; }
+    pre .kw     { color: #c084fc; }
+    pre .fn     { color: #fbbf24; }
+    pre .tag    { color: #f87171; }
+    pre .attr   { color: #7dd3fc; }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .card h3 { margin-top: 0; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+    .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+    .badge-green  { background: #dcfce7; color: #15803d; }
+    .badge-purple { background: #f3e8ff; color: #7e22ce; }
+    .badge-orange { background: #ffedd5; color: #c2410c; }
+    .badge-slate  { background: #f1f5f9; color: #475569; }
+
+    /* ── Analogy box ── */
+    .analogy {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .analogy strong { color: #1d4ed8; }
+
+    /* ── Info / tip box ── */
+    .tip {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+
+    /* ── File tree ── */
+    .tree {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 20px 24px;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.87rem;
+      line-height: 1.8;
+      margin: 16px 0;
+    }
+    .tree .dir  { color: #7dd3fc; }
+    .tree .file { color: #e2e8f0; }
+    .tree .note { color: #475569; font-style: italic; }
+
+    /* ── Table ── */
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: #f1f5f9; text-align: left; padding: 10px 14px; font-size: 13px; color: #475569; border-bottom: 2px solid #e2e8f0; }
+    td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: top; }
+    tr:hover td { background: #f8fafc; }
+
+    /* ── Flow diagram ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .flow-box {
+      background: #fff;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .flow-box.blue { border-color: #3b82f6; background: #eff6ff; color: #1d4ed8; }
+    .flow-box.green { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+    .flow-arrow { color: #94a3b8; font-size: 18px; }
+
+    /* ── Highlight ── */
+    .highlight { background: #fef9c3; padding: 1px 4px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="logo">📘 Portfolio Guide</div>
+  <h2>Contents</h2>
+  <a href="#overview">1. Overview</a>
+  <a href="#stack">2. Tech Stack</a>
+  <a href="#structure">3. Project Structure</a>
+  <a href="#nextjs">4. How Next.js Works</a>
+  <a href="#layout">5. layout.tsx</a>
+  <a href="#homepage">6. Homepage (page.tsx)</a>
+  <a href="#components">7. Components</a>
+  <a href="#blog-system">8. Blog System</a>
+  <a href="#lib">9. lib/posts.ts</a>
+  <a href="#blog-pages">10. Blog Pages</a>
+  <a href="#styling">11. Styling (Tailwind)</a>
+  <a href="#config">12. Config Files</a>
+  <a href="#deployment">13. Deployment</a>
+  <a href="#data-flow">14. Full Data Flow</a>
+</nav>
+
+<main>
+
+  <h1>How My Portfolio Was Built</h1>
+  <p class="subtitle">A complete walkthrough of every file, library, and concept — written for a Java/Spring Boot developer.</p>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="overview">1. Overview</h2>
+
+  <p>The portfolio is a <strong>statically generated website</strong>. That means at build time, every page is pre-rendered into plain HTML files. When someone visits the site, the server just sends those HTML files — there's no database query, no running server process per request.</p>
+
+  <div class="analogy">
+    <strong>Java analogy:</strong> Think of it like pre-computing every possible API response and storing the results in files. Instead of your Spring Boot app computing a response on every request, the responses are already computed and served as files. Blazing fast and cheap to host.
+  </div>
+
+  <p>The site has four sections and two types of pages:</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📄 Single-page sections</h3>
+      <ul>
+        <li>Hero / About</li>
+        <li>Skills</li>
+        <li>Contact</li>
+      </ul>
+      <p>All live on the <code>/</code> homepage.</p>
+    </div>
+    <div class="card">
+      <h3>📰 Blog (dynamic routes)</h3>
+      <ul>
+        <li><code>/blog</code> — article listing</li>
+        <li><code>/blog/guide-to-npe</code> — individual article</li>
+        <li>23 articles total, all pre-rendered</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="stack">2. Tech Stack</h2>
+
+  <table>
+    <tr>
+      <th>Technology</th>
+      <th>Role</th>
+      <th>Java Equivalent</th>
+    </tr>
+    <tr>
+      <td><strong>Next.js 15</strong></td>
+      <td>The full framework — routing, build system, SSG</td>
+      <td>Spring Boot</td>
+    </tr>
+    <tr>
+      <td><strong>React 19</strong></td>
+      <td>UI component library — defines how things look</td>
+      <td>Thymeleaf / JSF (but much more powerful)</td>
+    </tr>
+    <tr>
+      <td><strong>TypeScript</strong></td>
+      <td>Typed JavaScript — catches bugs at compile time</td>
+      <td>Java (strict types vs. raw JS's duck typing)</td>
+    </tr>
+    <tr>
+      <td><strong>Tailwind CSS v3</strong></td>
+      <td>Utility-first CSS — style directly in your HTML</td>
+      <td>No direct equivalent (it's just CSS)</td>
+    </tr>
+    <tr>
+      <td><strong>gray-matter</strong></td>
+      <td>Parses YAML frontmatter from Markdown files</td>
+      <td>Jackson ObjectMapper (reading structured data)</td>
+    </tr>
+    <tr>
+      <td><strong>remark + remark-html</strong></td>
+      <td>Converts Markdown text to HTML</td>
+      <td>A custom parser / template engine</td>
+    </tr>
+    <tr>
+      <td><strong>remark-gfm</strong></td>
+      <td>Adds GitHub-flavoured Markdown support (tables, strikethrough, etc.)</td>
+      <td>A plugin / extension</td>
+    </tr>
+  </table>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="structure">3. Project Structure</h2>
+
+  <div class="tree">
+    <span class="dir">my-website/</span><br>
+    ├── <span class="dir">app/</span>              <span class="note"># All pages (Next.js file-based routing)</span><br>
+    │   ├── <span class="file">layout.tsx</span>    <span class="note"># Root wrapper: Navbar + footer around EVERY page</span><br>
+    │   ├── <span class="file">page.tsx</span>      <span class="note"># Homepage → renders Hero, Skills, Contact</span><br>
+    │   ├── <span class="file">globals.css</span>   <span class="note"># Global CSS (Tailwind directives)</span><br>
+    │   └── <span class="dir">blog/</span><br>
+    │       ├── <span class="file">page.tsx</span>  <span class="note"># /blog → article card grid</span><br>
+    │       └── <span class="dir">[slug]/</span>    <span class="note"># Dynamic segment — matches any /blog/&lt;anything&gt;</span><br>
+    │           └── <span class="file">page.tsx</span> <span class="note"># Renders one blog article</span><br>
+    │<br>
+    ├── <span class="dir">components/</span>        <span class="note"># Reusable UI pieces</span><br>
+    │   ├── <span class="file">Navbar.tsx</span><br>
+    │   ├── <span class="file">Hero.tsx</span><br>
+    │   ├── <span class="file">Skills.tsx</span><br>
+    │   ├── <span class="file">BlogCard.tsx</span><br>
+    │   └── <span class="file">Contact.tsx</span><br>
+    │<br>
+    ├── <span class="dir">content/</span><br>
+    │   └── <span class="dir">posts/</span>         <span class="note"># 23 Markdown files (your blog articles)</span><br>
+    │       ├── <span class="file">guide-to-npe.md</span><br>
+    │       └── <span class="file">... (22 more)</span><br>
+    │<br>
+    ├── <span class="dir">lib/</span><br>
+    │   └── <span class="file">posts.ts</span>      <span class="note"># Functions to read + parse Markdown files</span><br>
+    │<br>
+    ├── <span class="file">tailwind.config.ts</span> <span class="note"># Tailwind configuration</span><br>
+    ├── <span class="file">next.config.ts</span>     <span class="note"># Next.js configuration</span><br>
+    ├── <span class="file">postcss.config.mjs</span> <span class="note"># CSS processing pipeline</span><br>
+    ├── <span class="file">tsconfig.json</span>      <span class="note"># TypeScript compiler settings</span><br>
+    └── <span class="file">netlify.toml</span>       <span class="note"># Deployment config for Netlify</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="nextjs">4. How Next.js Works (File-Based Routing)</h2>
+
+  <p>In Spring Boot, you annotate a method with <code>@GetMapping("/blog")</code> to handle a route. In Next.js, <strong>the file path IS the route</strong>. No annotations needed.</p>
+
+  <table>
+    <tr><th>File path</th><th>URL it handles</th></tr>
+    <tr><td><code>app/page.tsx</code></td><td><code>/</code></td></tr>
+    <tr><td><code>app/blog/page.tsx</code></td><td><code>/blog</code></td></tr>
+    <tr><td><code>app/blog/[slug]/page.tsx</code></td><td><code>/blog/anything-here</code></td></tr>
+  </table>
+
+  <p>The <code>[slug]</code> in the folder name is a <strong>dynamic segment</strong> — like a path variable in Spring Boot. When someone visits <code>/blog/guide-to-npe</code>, the value <code>"guide-to-npe"</code> is passed into the page as a parameter called <code>slug</code>.</p>
+
+  <div class="analogy">
+    <strong>Java analogy:</strong>
+    <pre>// Spring Boot
+@GetMapping("/blog/{slug}")
+public String blogPost(@PathVariable String slug) { ... }
+
+// Next.js equivalent — just the file path:
+// app/blog/[slug]/page.tsx
+// The slug is available via: const { slug } = await props.params</pre>
+  </div>
+
+  <h3>Server Components (the default)</h3>
+  <p>All components in the <code>app/</code> directory are <strong>Server Components</strong> by default. They run on the server (or at build time), have access to the filesystem, and send plain HTML to the browser. No JavaScript bundle shipped to the user for these.</p>
+  <p>If you need interactivity (click handlers, state), you add <code>"use client"</code> at the top — we didn't need that in this project since everything is static.</p>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="layout">5. app/layout.tsx — The Root Wrapper</h2>
+
+  <p>This file wraps <strong>every single page</strong> on the site. It's like a base template that all pages inherit.</p>
+
+  <div class="analogy">
+    <strong>Java analogy:</strong> Think of it like a base Thymeleaf template (<code>base.html</code>) that all pages extend with <code>th:replace</code>. Or a servlet filter that wraps every request.
+  </div>
+
+<pre>
+<span class="kw">import</span> type { Metadata } from <span class="str">"next"</span>;
+<span class="kw">import</span> { Geist, Geist_Mono } from <span class="str">"next/font/google"</span>; <span class="comment">// Load Google Fonts</span>
+<span class="kw">import</span> <span class="str">"./globals.css"</span>;
+<span class="kw">import</span> Navbar from <span class="str">"@/components/Navbar"</span>;
+
+<span class="comment">// SEO metadata — populates &lt;title&gt; and &lt;meta description&gt;</span>
+<span class="kw">export const</span> <span class="fn">metadata</span>: Metadata = {
+  title: <span class="str">"Firas Ahmed | Software Engineer"</span>,
+  description: <span class="str">"Portfolio of Firas Ahmed..."</span>,
+};
+
+<span class="comment">// This function returns the HTML shell for every page.
+// "children" is whatever page.tsx returns — it gets injected here.</span>
+<span class="kw">export default function</span> <span class="fn">RootLayout</span>({ children }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="str">"en"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;body&gt;</span>
+        <span class="tag">&lt;Navbar /&gt;</span>               <span class="comment">{/* appears on every page */}</span>
+        <span class="tag">&lt;main&gt;</span>{children}<span class="tag">&lt;/main&gt;</span>  <span class="comment">{/* the current page renders here */}</span>
+        <span class="tag">&lt;footer&gt;</span>...<span class="tag">&lt;/footer&gt;</span>
+      <span class="tag">&lt;/body&gt;</span>
+    <span class="tag">&lt;/html&gt;</span>
+  );
+}
+</pre>
+
+  <p><code>@/components/Navbar</code> — the <code>@</code> is an alias for the project root. It's configured in <code>tsconfig.json</code>. Equivalent to a classpath import in Java.</p>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="homepage">6. app/page.tsx — The Homepage</h2>
+
+  <p>This is the simplest file in the project. It just composes three components together:</p>
+
+<pre>
+<span class="kw">import</span> Hero from <span class="str">"@/components/Hero"</span>;
+<span class="kw">import</span> Skills from <span class="str">"@/components/Skills"</span>;
+<span class="kw">import</span> Contact from <span class="str">"@/components/Contact"</span>;
+
+<span class="kw">export default function</span> <span class="fn">Home</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>          <span class="comment">{/* &lt;&gt;&lt;/&gt; = React Fragment: groups elements without adding a DOM node */}</span>
+      <span class="tag">&lt;Hero /&gt;</span>
+      <span class="tag">&lt;Skills /&gt;</span>
+      <span class="tag">&lt;Contact /&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}
+</pre>
+
+  <div class="analogy">
+    <strong>What is JSX?</strong> That HTML-looking syntax inside JavaScript is called <strong>JSX</strong>. It's not real HTML — it's a syntax extension that React compiles to JavaScript function calls. <code>&lt;Hero /&gt;</code> is equivalent to calling <code>Hero()</code> and getting back UI markup.
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="components">7. Components</h2>
+
+  <p>A <strong>component</strong> is just a TypeScript function that returns JSX (markup). Each component lives in its own file in <code>components/</code>.</p>
+
+  <div class="analogy">
+    <strong>Java analogy:</strong> Think of each component as a small class with one job — render a piece of UI. Like a <code>@Component</code> but instead of containing business logic, it contains UI markup.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Navbar.tsx</h3>
+      <p>The sticky top navigation bar. Uses Next.js <code>&lt;Link&gt;</code> for navigation — like an <code>&lt;a&gt;</code> tag but with client-side routing (no full page reload).</p>
+    </div>
+    <div class="card">
+      <h3>Hero.tsx</h3>
+      <p>The big intro section with name, title, bio, and CTA buttons. Pure static markup — no logic.</p>
+    </div>
+    <div class="card">
+      <h3>Skills.tsx</h3>
+      <p>Defines a <code>skills</code> array (data) and maps over it to render cards. The <code>.map()</code> is like a Java stream — it transforms each item into a UI element.</p>
+    </div>
+    <div class="card">
+      <h3>BlogCard.tsx</h3>
+      <p>Receives <strong>props</strong> (slug, title, date, excerpt, tags) and renders one article card. Props are like constructor parameters — data passed in from outside.</p>
+    </div>
+    <div class="card">
+      <h3>Contact.tsx</h3>
+      <p>Email and GitHub links rendered as styled cards. Static markup.</p>
+    </div>
+  </div>
+
+  <h3>What are Props?</h3>
+  <p><strong>Props</strong> are how you pass data into a component — like method arguments. Here's BlogCard's interface:</p>
+<pre>
+<span class="comment">// This defines the "contract" for what BlogCard needs — like an interface in Java</span>
+<span class="kw">interface</span> BlogCardProps {
+  slug:    string;
+  title:   string;
+  date:    string;
+  excerpt: string;
+  tags:    string[];
+}
+
+<span class="kw">export default function</span> <span class="fn">BlogCard</span>({ slug, title, date, excerpt, tags }: BlogCardProps) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;article&gt;</span>
+      <span class="tag">&lt;h2&gt;</span>{title}<span class="tag">&lt;/h2&gt;</span>
+      <span class="tag">&lt;p&gt;</span>{excerpt}<span class="tag">&lt;/p&gt;</span>
+      ...
+    <span class="tag">&lt;/article&gt;</span>
+  );
+}
+</pre>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="blog-system">8. The Blog System</h2>
+
+  <p>The blog system has three parts working together:</p>
+
+  <div class="flow">
+    <div class="flow-box blue">Markdown files<br><small>content/posts/*.md</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">lib/posts.ts<br><small>reads &amp; parses files</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">Blog pages<br><small>app/blog/</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box green">Static HTML<br><small>at build time</small></div>
+  </div>
+
+  <h3>Markdown file format</h3>
+  <p>Each article has a <strong>frontmatter</strong> block at the top (YAML between <code>---</code> lines) followed by the article content:</p>
+<pre>
+<span class="comment">---
+title: "Guide to NullPointerException in Java"
+date: "2024-02-04"
+tags: ["Java", "Exceptions", "Debugging"]
+excerpt: "NullPointerException is one of those dreaded exceptions..."
+---</span>
+
+`NullPointerException` is one of those dreaded exceptions...
+
+## What is `null` in Java?
+...
+</pre>
+
+  <div class="analogy">
+    <strong>Java analogy:</strong> Frontmatter is like a config file header — structured metadata that the program reads separately from the actual content. It's parsed by <code>gray-matter</code>, similar to how Jackson reads JSON into a Java object.
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="lib">9. lib/posts.ts — The Data Layer</h2>
+
+  <p>This file is the "repository" of the blog. It reads files from disk and returns structured data. It has three exported functions:</p>
+
+<pre>
+<span class="kw">import</span> fs from <span class="str">'fs'</span>;          <span class="comment">// Node.js built-in: read files from disk</span>
+<span class="kw">import</span> path from <span class="str">'path'</span>;      <span class="comment">// Node.js built-in: build file paths safely</span>
+<span class="kw">import</span> matter from <span class="str">'gray-matter'</span>;   <span class="comment">// Parse YAML frontmatter</span>
+<span class="kw">import</span> { remark } from <span class="str">'remark'</span>;    <span class="comment">// Markdown processor</span>
+<span class="kw">import</span> remarkGfm from <span class="str">'remark-gfm'</span>;   <span class="comment">// GitHub Flavored Markdown plugin</span>
+<span class="kw">import</span> remarkHtml from <span class="str">'remark-html'</span>;  <span class="comment">// Converts Markdown → HTML</span>
+
+<span class="comment">// Points to the content/posts/ folder</span>
+<span class="kw">const</span> postsDir = path.<span class="fn">join</span>(process.cwd(), <span class="str">'content/posts'</span>);
+
+<span class="comment">// ① Returns ALL posts sorted by date (newest first)
+//    Used by: app/blog/page.tsx (the listing page)</span>
+<span class="kw">export function</span> <span class="fn">getAllPosts</span>(): PostMeta[] {
+  <span class="kw">const</span> files = fs.<span class="fn">readdirSync</span>(postsDir).<span class="fn">filter</span>(f => f.endsWith(<span class="str">'.md'</span>));
+
+  <span class="kw">return</span> files
+    .<span class="fn">map</span>(filename => {
+      <span class="kw">const</span> raw = fs.<span class="fn">readFileSync</span>(path.<span class="fn">join</span>(postsDir, filename), <span class="str">'utf8'</span>);
+      <span class="kw">const</span> { data } = <span class="fn">matter</span>(raw); <span class="comment">// data = the frontmatter object</span>
+      <span class="kw">return</span> { slug: filename.replace(<span class="str">/\.md$/</span>, <span class="str">''</span>), ...data };
+    })
+    .<span class="fn">sort</span>((a, b) => a.date &lt; b.date ? <span class="str">1</span> : <span class="str">-1</span>); <span class="comment">// newest first</span>
+}
+
+<span class="comment">// ② Returns ONE post's full content as HTML
+//    Used by: app/blog/[slug]/page.tsx</span>
+<span class="kw">export async function</span> <span class="fn">getPostBySlug</span>(slug: string): Promise&lt;Post | null&gt; {
+  <span class="kw">const</span> raw = fs.<span class="fn">readFileSync</span>(`${postsDir}/${slug}.md`, <span class="str">'utf8'</span>);
+  <span class="kw">const</span> { data, content } = <span class="fn">matter</span>(raw); <span class="comment">// data = frontmatter, content = body text</span>
+
+  <span class="comment">// Convert Markdown body to HTML string</span>
+  <span class="kw">const</span> processed = <span class="kw">await</span> <span class="fn">remark</span>()
+    .<span class="fn">use</span>(remarkGfm)   <span class="comment">// enable tables, strikethrough, etc.</span>
+    .<span class="fn">use</span>(remarkHtml)  <span class="comment">// output HTML</span>
+    .<span class="fn">process</span>(content);
+
+  <span class="kw">return</span> { ...data, slug, contentHtml: processed.<span class="fn">toString</span>() };
+}
+
+<span class="comment">// ③ Returns all slugs — used by generateStaticParams to pre-render all posts</span>
+<span class="kw">export function</span> <span class="fn">getAllSlugs</span>(): string[] {
+  <span class="kw">return</span> fs.<span class="fn">readdirSync</span>(postsDir)
+    .<span class="fn">filter</span>(f => f.endsWith(<span class="str">'.md'</span>))
+    .<span class="fn">map</span>(f => f.replace(<span class="str">/\.md$/</span>, <span class="str">''</span>));
+}
+</pre>
+
+  <div class="analogy">
+    <strong>Java analogy:</strong> <code>getAllPosts()</code> is like a <code>@Repository</code> method that does <code>findAll()</code>. <code>getPostBySlug()</code> is like <code>findById()</code>. Except instead of a database, the "database" is a folder of Markdown files on disk.
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="blog-pages">10. Blog Pages</h2>
+
+  <h3>app/blog/page.tsx — The Listing Page</h3>
+<pre>
+<span class="kw">import</span> { getAllPosts } from <span class="str">"@/lib/posts"</span>;
+<span class="kw">import</span> BlogCard from <span class="str">"@/components/BlogCard"</span>;
+
+<span class="kw">export default function</span> <span class="fn">BlogPage</span>() {
+  <span class="kw">const</span> posts = <span class="fn">getAllPosts</span>();  <span class="comment">// reads all 23 markdown files</span>
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;div&gt;</span>
+      {posts.<span class="fn">map</span>(post => (
+        <span class="comment">{/* For each post, render a BlogCard */}</span>
+        <span class="tag">&lt;BlogCard</span> <span class="attr">key</span>={post.slug} {...post} <span class="tag">/&gt;</span>
+      ))}
+    <span class="tag">&lt;/div&gt;</span>
+  );
+}
+</pre>
+
+  <p><code>{...post}</code> is the <strong>spread operator</strong> — it passes all properties of the <code>post</code> object as individual props to <code>BlogCard</code>. Like calling a method with all fields of an object unpacked as separate arguments.</p>
+
+  <h3>app/blog/[slug]/page.tsx — Individual Article Page</h3>
+<pre>
+<span class="comment">// This tells Next.js: "at build time, pre-render one page for EACH slug"</span>
+<span class="kw">export async function</span> <span class="fn">generateStaticParams</span>() {
+  <span class="kw">return</span> <span class="fn">getAllSlugs</span>().<span class="fn">map</span>(slug => ({ slug }));
+  <span class="comment">// Returns: [{ slug: "guide-to-npe" }, { slug: "string-pool" }, ...]</span>
+}
+
+<span class="comment">// props.params.slug = the value from the URL (e.g. "guide-to-npe")</span>
+<span class="kw">export default async function</span> <span class="fn">BlogPostPage</span>(props: PageProps&lt;<span class="str">'/blog/[slug]'</span>&gt;) {
+  <span class="kw">const</span> { slug } = <span class="kw">await</span> props.params;   <span class="comment">// params is a Promise in Next.js 15</span>
+  <span class="kw">const</span> post = <span class="kw">await</span> <span class="fn">getPostBySlug</span>(slug); <span class="comment">// read + parse the markdown file</span>
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;article</span>
+      <span class="attr">className</span>=<span class="str">"prose prose-slate prose-lg"</span>  <span class="comment">{/* Tailwind typography classes */}</span>
+      <span class="attr">dangerouslySetInnerHTML</span>={{ __html: post.contentHtml }}  <span class="comment">{/* inject HTML */}</span>
+    <span class="tag">/&gt;</span>
+  );
+}
+</pre>
+
+  <div class="tip">
+    <strong>generateStaticParams</strong> is key to SSG. It tells Next.js which slugs exist, so it can pre-render a page for each one at build time — no server needed at runtime.
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="styling">11. Styling — Tailwind CSS</h2>
+
+  <p>Tailwind is a <strong>utility-first</strong> CSS framework. Instead of writing CSS files, you apply small, single-purpose classes directly in your JSX.</p>
+
+  <table>
+    <tr><th>Tailwind class</th><th>What it does</th></tr>
+    <tr><td><code>bg-white</code></td><td>background-color: white</td></tr>
+    <tr><td><code>text-slate-800</code></td><td>color: dark slate</td></tr>
+    <tr><td><code>px-6</code></td><td>padding-left + padding-right: 24px</td></tr>
+    <tr><td><code>py-20</code></td><td>padding-top + padding-bottom: 80px</td></tr>
+    <tr><td><code>flex items-center gap-6</code></td><td>display: flex; align-items: center; gap: 24px</td></tr>
+    <tr><td><code>hover:text-blue-600</code></td><td>on hover: color changes to blue-600</td></tr>
+    <tr><td><code>sm:grid-cols-2</code></td><td>on small screens+: 2 columns (responsive)</td></tr>
+    <tr><td><code>prose prose-slate</code></td><td>@tailwindcss/typography: styles rendered Markdown</td></tr>
+  </table>
+
+  <p>The <code>prose</code> class (from the <code>@tailwindcss/typography</code> plugin) automatically styles whatever HTML is inside — headings, paragraphs, code blocks, lists. That's what makes blog articles look good without writing any custom CSS.</p>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="config">12. Config Files</h2>
+
+  <div class="card">
+    <h3>tailwind.config.ts</h3>
+    <p>Tells Tailwind where your component files are so it can scan them and only include the CSS classes you actually use (tree-shaking).</p>
+<pre>
+content: [
+  <span class="str">"./app/**/*.{js,ts,jsx,tsx}"</span>,       <span class="comment">// scan app/ folder</span>
+  <span class="str">"./components/**/*.{js,ts,jsx,tsx}"</span>, <span class="comment">// scan components/ folder</span>
+],
+plugins: [typography],  <span class="comment">// enable the prose/typography plugin</span>
+</pre>
+  </div>
+
+  <div class="card">
+    <h3>next.config.ts</h3>
+    <p>Next.js project configuration. We set <code>outputFileTracingRoot</code> to avoid a warning about multiple lockfiles detected in parent directories.</p>
+  </div>
+
+  <div class="card">
+    <h3>postcss.config.mjs</h3>
+    <p>PostCSS is a CSS processing pipeline. Tailwind uses it to transform your CSS. Without this, Tailwind's utility classes wouldn't be generated.</p>
+<pre>
+plugins: {
+  tailwindcss: {},   <span class="comment">// generate Tailwind utilities</span>
+  autoprefixer: {},  <span class="comment">// add vendor prefixes (-webkit-, etc.) for browser compat</span>
+}
+</pre>
+  </div>
+
+  <div class="card">
+    <h3>tsconfig.json</h3>
+    <p>TypeScript compiler settings. The important bit is the <code>@</code> alias — it lets you write <code>@/components/Navbar</code> instead of <code>../../components/Navbar</code>.</p>
+<pre>
+<span class="str">"paths"</span>: { <span class="str">"@/*"</span>: [<span class="str">"./*"</span>] }  <span class="comment">// @ = project root</span>
+</pre>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="deployment">13. Deployment (Netlify)</h2>
+
+  <p>The <code>netlify.toml</code> file tells Netlify how to build and deploy the site:</p>
+<pre>
+[build]
+  command = <span class="str">"npm run build"</span>  <span class="comment"># runs: next build → generates static HTML files</span>
+  publish = <span class="str">".next"</span>          <span class="comment"># the folder Netlify serves</span>
+
+[[plugins]]
+  package = <span class="str">"@netlify/plugin-nextjs"</span>  <span class="comment"># Netlify-specific Next.js adapter</span>
+</pre>
+
+  <p>When you connect the GitHub repo to Netlify, every push to <code>main</code> triggers a new build. Netlify runs <code>npm run build</code>, which pre-renders all 29 pages, then serves them as static files globally via CDN.</p>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="data-flow">14. Full Data Flow at Build Time</h2>
+
+  <p>Here's exactly what happens when you run <code>npm run build</code>:</p>
+
+  <div class="card">
+    <h4>Step 1 — Next.js scans the app/ directory</h4>
+    <p>It finds: <code>page.tsx</code>, <code>blog/page.tsx</code>, <code>blog/[slug]/page.tsx</code>.</p>
+  </div>
+  <div class="card">
+    <h4>Step 2 — For dynamic routes, it calls generateStaticParams()</h4>
+    <p><code>getAllSlugs()</code> reads <code>content/posts/</code> → returns 23 slugs. Next.js now knows it needs to build 23 blog post pages.</p>
+  </div>
+  <div class="card">
+    <h4>Step 3 — For each slug, it renders the page</h4>
+    <p><code>getPostBySlug("guide-to-npe")</code> is called → reads <code>content/posts/guide-to-npe.md</code> → parses frontmatter with <code>gray-matter</code> → converts Markdown body to HTML with <code>remark</code> → returns the data.</p>
+  </div>
+  <div class="card">
+    <h4>Step 4 — The page component renders to HTML</h4>
+    <p>The <code>BlogPostPage</code> component receives the post data and renders it as HTML. Tailwind's <code>prose</code> styles are applied.</p>
+  </div>
+  <div class="card">
+    <h4>Step 5 — Output: 29 static HTML files</h4>
+    <p>1 homepage + 1 blog listing + 23 blog posts + 4 others = 29 pages. All saved in <code>.next/</code>. The site is ready to serve with zero server-side processing per request.</p>
+  </div>
+
+  <div class="tip">
+    <strong>Summary:</strong> At build time everything runs on Node.js (server-side). In production, users just receive pre-built HTML + CSS + minimal JS. No Java process, no database, no server per request.
+  </div>
+
+  <br><br>
+  <p style="color:#94a3b8; font-size:13px; text-align:center; padding-bottom: 40px;">
+    Generated for Firas Ahmed · Portfolio Codebase Guide
+  </p>
+
+</main>
+
+<script>
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('h2[id]');
+  const links = document.querySelectorAll('.sidebar a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
