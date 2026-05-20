@@ -1,5 +1,5 @@
 import { getAllPosts } from "@/lib/posts";
-import BlogCard from "@/components/BlogCard";
+import BlogList from "@/components/BlogList";
 
 export const metadata = {
   title: "Blog | Firas Ahmed",
@@ -8,6 +8,7 @@ export const metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
+  const tags = [...new Set(posts.flatMap((p) => p.tags))].sort();
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">
@@ -15,11 +16,7 @@ export default function BlogPage() {
       <p className="text-slate-500 mb-10">
         Thoughts on Java, backend engineering, and software development.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <BlogCard key={post.slug} {...post} />
-        ))}
-      </div>
+      <BlogList posts={posts} tags={tags} />
     </div>
   );
 }
