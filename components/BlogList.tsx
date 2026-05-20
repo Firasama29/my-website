@@ -12,6 +12,10 @@ interface BlogListProps {
 export default function BlogList({ posts, tags }: BlogListProps) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
+  const tagCounts = Object.fromEntries(
+    tags.map((tag) => [tag, posts.filter((p) => p.tags.includes(tag)).length])
+  );
+
   const filtered = selectedTag
     ? posts.filter((p) => p.tags.includes(selectedTag))
     : posts;
@@ -39,7 +43,7 @@ export default function BlogList({ posts, tags }: BlogListProps) {
                 : "bg-white border border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600"
             }`}
           >
-            {tag}
+            {tag} ({tagCounts[tag]})
           </button>
         ))}
       </div>
