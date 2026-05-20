@@ -6,6 +6,7 @@ interface BlogCardProps {
   date: string;
   excerpt: string;
   tags: string[];
+  readingTime: number;
 }
 
 export default function BlogCard({
@@ -14,6 +15,7 @@ export default function BlogCard({
   date,
   excerpt,
   tags,
+  readingTime,
 }: BlogCardProps) {
   const formatted = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -42,7 +44,9 @@ export default function BlogCard({
         {excerpt}
       </p>
       <div className="flex items-center justify-between mt-auto pt-2">
-        <time className="text-xs text-slate-400">{formatted}</time>
+        <time className="text-xs text-slate-400">
+          {formatted} · {readingTime} min read
+        </time>
         <Link
           href={`/blog/${slug}`}
           className="text-sm text-blue-600 font-medium hover:underline"

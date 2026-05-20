@@ -13,6 +13,7 @@ export interface PostMeta {
   date: string;
   excerpt: string;
   tags: string[];
+  readingTime: number;
 }
 
 export interface Post extends PostMeta {
@@ -26,7 +27,8 @@ export function getAllPosts(): PostMeta[] {
     .map((filename) => {
       const slug = filename.replace(/\.md$/, "");
       const raw = fs.readFileSync(path.join(postsDir, filename), "utf8");
-      const { data } = matter(raw);
+      const { data, content } = matter(raw);
+      const readingTime = Math.ceil(content.trim().split(/\s+/).length / 200);
 
       return {
         slug,
@@ -34,6 +36,7 @@ export function getAllPosts(): PostMeta[] {
         date: data.date ?? "2024-01-01",
         excerpt: data.excerpt ?? "",
         tags: data.tags ?? [],
+        readingTime,
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -45,6 +48,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
   const raw = fs.readFileSync(filepath, "utf8");
   const { data, content } = matter(raw);
+  const readingTime = Math.ceil(content.trim().split(/\s+/).length / 200);
 
   const processed = await remark()
     .use(remarkGfm)
@@ -57,6 +61,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     date: data.date ?? "2024-01-01",
     excerpt: data.excerpt ?? "",
     tags: data.tags ?? [],
+    readingTime,
     contentHtml: processed.toString(),
   };
 }
