@@ -18,6 +18,16 @@ npm run build   # production build — run this to verify before committing
 
 ---
 
+## Git & branching
+
+- **Branch naming**: `feature/<short-description>` (e.g. `feature/related-posts`)
+- **One feature per branch** — keep changes focused and reviewable
+- **Always run `npm run build` before committing** — catches type errors that tests won't
+- **PRs target `main`** by default unless intentionally stacking on another feature branch
+- **Netlify auto-deploys on every push to `main`** — no manual deploy steps needed after the initial site setup
+
+---
+
 ## Stack — critical version constraints
 
 | Package | Version | Why it matters |
@@ -126,6 +136,7 @@ excerpt: "One or two sentence summary under ~160 chars."
 - `getAllPosts()` — returns all posts sorted newest first (for the listing page)
 - `getPostBySlug(slug)` — returns one post with rendered HTML (for the post page)
 - `getAllSlugs()` — returns slug list for `generateStaticParams`
+- `getRelatedPosts(slug, tags)` — returns top 3 posts by tag overlap, excludes current post (for the related posts section)
 
 Do not add database or network calls here — this is a static site; all data comes from the filesystem at build time.
 
@@ -135,5 +146,5 @@ Do not add database or network calls here — this is a static site; all data co
 
 - Projects / side-projects section
 - Blog images (articles referencing GitHub-hosted images will have broken image links until images are copied to `public/` and paths updated)
-- Search or tag filtering on the blog listing
 - Dark mode
+- LinkedIn link in Contact section
