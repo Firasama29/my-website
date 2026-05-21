@@ -1,6 +1,7 @@
-import { getPostBySlug, getAllSlugs } from "@/lib/posts";
+import { getPostBySlug, getAllSlugs, getRelatedPosts } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import RelatedPosts from "@/components/RelatedPosts";
 
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -21,6 +22,8 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   const post = await getPostBySlug(slug);
 
   if (!post) notFound();
+
+  const related = getRelatedPosts(slug, post.tags);
 
   const formatted = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -56,6 +59,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
         className="prose prose-slate prose-lg max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-code:text-blue-700 prose-code:bg-slate-100 prose-code:px-1 prose-code:rounded"
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
+      <RelatedPosts posts={related} />
     </div>
   );
 }

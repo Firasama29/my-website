@@ -72,3 +72,16 @@ export function getAllSlugs(): string[] {
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.replace(/\.md$/, ""));
 }
+
+export function getRelatedPosts(slug: string, tags: string[]): PostMeta[] {
+  return getAllPosts()
+    .filter((p) => p.slug !== slug)
+    .map((p) => ({
+      ...p,
+      score: p.tags.filter((t) => tags.includes(t)).length,
+    }))
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map(({ score: _score, ...p }) => p);
+}
