@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MobileNav from "@/components/MobileNav";
 
 export default function Navbar() {
   return (
@@ -10,7 +11,7 @@ export default function Navbar() {
         >
           Firas Ahmed
         </Link>
-        <div className="flex items-center gap-6 text-sm font-medium text-slate-600">
+        <div className="hidden sm:flex items-center gap-6 text-sm font-medium text-slate-600">
           <Link href="/#about" className="hover:text-blue-600 transition-colors">
             About
           </Link>
@@ -24,6 +25,7 @@ export default function Navbar() {
             Contact
           </Link>
         </div>
+        <MobileNav />
       </div>
     </nav>
   );
