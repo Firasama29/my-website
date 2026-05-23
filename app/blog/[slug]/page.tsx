@@ -2,6 +2,7 @@ import { getPostBySlug, getAllSlugs, getRelatedPosts } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
+import { Badge } from "@/components/ui/badge";
 
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -42,12 +43,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
       <header className="mb-10">
         <div className="flex flex-wrap gap-2 mb-4">
           {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-medium"
-            >
-              {tag}
-            </span>
+            <Badge key={tag}>{tag}</Badge>
           ))}
         </div>
         <h1 className="text-4xl font-bold text-slate-800 leading-tight mb-3">

@@ -1,3 +1,6 @@
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
 const skills = [
   { category: "Languages", items: ["Java", "Python", "SQL", "TypeScript"] },
   {
@@ -30,24 +33,20 @@ export default function Skills() {
         <p className="text-slate-500 mb-10">Technologies I work with</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map(({ category, items }) => (
-            <div
-              key={category}
-              className="bg-white rounded-xl border border-slate-100 p-6 shadow-sm"
-            >
-              <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-3">
-                {category}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {items.map((item) => (
-                  <span
-                    key={item}
-                    className="bg-slate-100 text-slate-700 text-sm px-3 py-1 rounded-full"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <Card key={category}>
+              <CardHeader>
+                <CardTitle>{category}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {items.map((item) => (
+                    <Badge key={item} variant="secondary">
+                      {item}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

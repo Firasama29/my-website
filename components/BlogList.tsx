@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import BlogCard from "@/components/BlogCard";
+import { Button } from "@/components/ui/button";
 import type { PostMeta } from "@/lib/posts";
 
 interface BlogListProps {
@@ -23,28 +24,24 @@ export default function BlogList({ posts, tags }: BlogListProps) {
   return (
     <>
       <div className="flex flex-wrap gap-2 mb-10">
-        <button
+        <Button
           onClick={() => setSelectedTag(null)}
-          className={`text-sm px-4 py-1.5 rounded-full font-medium transition-colors ${
-            selectedTag === null
-              ? "bg-blue-600 text-white"
-              : "bg-white border border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600"
-          }`}
+          variant={selectedTag === null ? "default" : "secondary"}
+          size="sm"
+          className="rounded-full"
         >
           All
-        </button>
+        </Button>
         {tags.map((tag) => (
-          <button
+          <Button
             key={tag}
             onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
-            className={`text-sm px-4 py-1.5 rounded-full font-medium transition-colors ${
-              selectedTag === tag
-                ? "bg-blue-600 text-white"
-                : "bg-white border border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600"
-            }`}
+            variant={selectedTag === tag ? "default" : "secondary"}
+            size="sm"
+            className="rounded-full"
           >
             {tag} ({tagCounts[tag]})
-          </button>
+          </Button>
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

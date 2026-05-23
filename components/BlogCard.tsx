@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface BlogCardProps {
   slug: string;
@@ -24,15 +26,10 @@ export default function BlogCard({
   });
 
   return (
-    <article className="bg-white rounded-xl border border-slate-100 p-6 shadow-sm hover:shadow-md hover:border-blue-100 transition-all flex flex-col gap-3">
+    <Card className="p-6 hover:shadow-md hover:border-blue-100 transition-all flex flex-col gap-3">
       <div className="flex items-center gap-2 flex-wrap">
         {tags.slice(0, 3).map((tag) => (
-          <span
-            key={tag}
-            className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-medium"
-          >
-            {tag}
-          </span>
+          <Badge key={tag}>{tag}</Badge>
         ))}
       </div>
       <Link href={`/blog/${slug}`}>
@@ -54,6 +51,6 @@ export default function BlogCard({
           Read more →
         </Link>
       </div>
-    </article>
+    </Card>
   );
 }

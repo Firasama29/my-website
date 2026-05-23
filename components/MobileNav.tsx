@@ -1,0 +1,37 @@
+"use client";
+
+import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
+
+const navLinks = [
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/blog", label: "Blog" },
+  { href: "/#contact", label: "Contact" },
+];
+
+export default function MobileNav() {
+  return (
+    <Sheet>
+      <SheetTrigger className="sm:hidden p-2 text-slate-600 hover:text-blue-600 transition-colors rounded-md">
+        <Menu className="h-5 w-5" />
+        <span className="sr-only">Open menu</span>
+      </SheetTrigger>
+      <SheetContent>
+        <nav className="flex flex-col gap-1 px-6 pt-14">
+          {navLinks.map(({ href, label }) => (
+            <SheetClose key={href} asChild>
+              <Link
+                href={href}
+                className="text-base font-medium text-slate-700 hover:text-blue-600 py-3 border-b border-slate-100 last:border-0 transition-colors"
+              >
+                {label}
+              </Link>
+            </SheetClose>
+          ))}
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
+}
