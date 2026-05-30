@@ -1,0 +1,306 @@
+/* ============ KEYFRAMES ============ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ============ SECTION ============ */
+.hero {
+  position: relative;
+  min-height: calc(100svh - 73px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* Dot grid atmosphere */
+  background-color: #ffffff;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
+  background-size: 22px 22px;
+  padding: 60px 24px 72px;
+}
+
+/* Faint decorative brace — backend engineer's symbol */
+.hero::before {
+  content: '{ }';
+  position: absolute;
+  top: -60px;
+  right: -80px;
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  font-size: 480px;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.022);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* ============ INNER LAYOUT ============ */
+.inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 56px;
+  align-items: center;
+}
+
+/* ============ LEFT COLUMN ============ */
+.left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Label */
+.label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-jetbrains), var(--font-geist-mono), 'SF Mono', Consolas, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+  color: #d4480c;
+  margin-bottom: 20px;
+  animation: fadeUp 0.55s ease-out both;
+  animation-delay: 0.05s;
+}
+
+.labelLine {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: #d4480c;
+  flex-shrink: 0;
+}
+
+/* Name */
+.name {
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  font-size: clamp(64px, 9.5vw, 110px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -2.5px;
+  color: #0d0d09;
+  margin-bottom: 28px;
+  animation: fadeUp 0.55s ease-out both;
+  animation-delay: 0.13s;
+}
+
+/* Bio */
+.bio {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #545448;
+  max-width: 430px;
+  margin-bottom: 38px;
+  animation: fadeUp 0.55s ease-out both;
+  animation-delay: 0.22s;
+}
+
+/* CTAs */
+.ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.55s ease-out both;
+  animation-delay: 0.30s;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: #0d0d09;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  letter-spacing: 0.15px;
+  border: 1.5px solid #0d0d09;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ctaPrimary:hover {
+  background: #d4480c;
+  border-color: #d4480c;
+  transform: translateY(-2px);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: transparent;
+  color: #0d0d09;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  letter-spacing: 0.15px;
+  border: 1.5px solid rgba(13, 13, 9, 0.18);
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.ctaSecondary:hover {
+  border-color: #d4480c;
+  color: #d4480c;
+  transform: translateY(-2px);
+}
+
+/* ============ RIGHT COLUMN / CODE WINDOW ============ */
+.right {
+  animation: slideRight 0.65s ease-out both;
+  animation-delay: 0.20s;
+}
+
+.codeWindow {
+  background: #141410;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.16),
+    0 8px 24px rgba(0, 0, 0, 0.10);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.codeWindow:hover {
+  box-shadow:
+    0 0 0 1px rgba(212, 72, 12, 0.2),
+    0 24px 72px rgba(0, 0, 0, 0.20),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+}
+
+/* Window header bar */
+.windowBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  background: #1c1c16;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.windowLang {
+  font-family: var(--font-jetbrains), var(--font-geist-mono), 'SF Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(212, 72, 12, 0.18);
+  color: #d4480c;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.windowFilename {
+  font-family: var(--font-jetbrains), var(--font-geist-mono), 'SF Mono', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.30);
+  letter-spacing: 0.2px;
+}
+
+/* Code body */
+.codeBody {
+  padding: 22px 22px 26px;
+  font-family: var(--font-jetbrains), var(--font-geist-mono), 'SF Mono', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.85;
+  color: #abb2bf;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre;
+  background: transparent;
+}
+
+/* ============ SYNTAX COLORS (One Dark) ============ */
+.kw  { color: #c678dd; }          /* keywords: public, class, void */
+.tp  { color: #56b6c2; }          /* types: String, boolean */
+.str { color: #98c379; }          /* string literals */
+.cm  { color: #5c6370; font-style: italic; } /* comments */
+.cls { color: #e5c07b; }          /* class name */
+.fn  { color: #61afef; }          /* method names */
+.num { color: #d19a66; }          /* numbers, true/false */
+
+/* Blinking cursor at end of code */
+.cursor {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  background: rgba(171, 178, 191, 0.7);
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: blink 1.15s step-end infinite;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1040px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .hero::before {
+    font-size: 300px;
+    top: -20px;
+    right: -60px;
+  }
+
+  .right {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding: 52px 20px 60px;
+  }
+
+  .hero::before {
+    display: none;
+  }
+
+  .right {
+    display: none;
+  }
+
+  .name {
+    font-size: clamp(58px, 16vw, 80px);
+    letter-spacing: -1.5px;
+  }
+
+  .bio {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label,
+  .name,
+  .bio,
+  .ctas,
+  .right {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .cursor {
+    animation: none;
+  }
+}

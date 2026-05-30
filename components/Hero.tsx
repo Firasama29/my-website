@@ -1,31 +1,83 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import styles from "./Hero.module.css";
 
 export default function Hero() {
+  const codeHtml = buildCodeHtml(styles);
+
   return (
-    <section id="about" className="max-w-5xl mx-auto px-6 py-20">
-      <div className="max-w-2xl">
-        <p className="text-blue-600 font-medium mb-3">Hello, I&apos;m</p>
-        <h1 className="text-5xl font-bold text-slate-800 mb-4 leading-tight">
-          Firas Ahmed
-        </h1>
-        <h2 className="text-2xl text-slate-500 font-medium mb-6">
-          Backend Software Engineer
-        </h2>
-        <p className="text-slate-600 text-lg leading-relaxed mb-8">
-          I build robust, scalable backend systems with a focus on clean code and
-          solid engineering principles. I work primarily with Java and Spring Boot,
-          and I enjoy writing about things I learn along the way.
-        </p>
-        <div className="flex gap-4 flex-wrap">
-          <Button asChild>
-            <Link href="/blog">Read my blog</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/#contact">Get in touch</Link>
-          </Button>
+    <section id="about" className={styles.hero}>
+      <div className={styles.inner}>
+
+        {/* ── Left: Typography ── */}
+        <div className={styles.left}>
+          <div className={styles.label}>
+            <span className={styles.labelLine} />
+            Backend Software Engineer
+          </div>
+
+          <h1 className={styles.name}>
+            Firas<br />Ahmed
+          </h1>
+
+          <p className={styles.bio}>
+            I build robust, scalable backend systems with a focus on clean code
+            and solid engineering principles. Primarily Java and Spring Boot —
+            and I enjoy writing about things I learn along the way.
+          </p>
+
+          <div className={styles.ctas}>
+            <Link href="/blog" className={styles.ctaPrimary}>
+              Read my blog
+            </Link>
+            <Link href="/#contact" className={styles.ctaSecondary}>
+              Get in touch
+            </Link>
+          </div>
         </div>
+
+        {/* ── Right: Code window ── */}
+        <div className={styles.right}>
+          <div className={styles.codeWindow}>
+            <div className={styles.windowBar}>
+              <span className={styles.windowLang}>java</span>
+              <span className={styles.windowFilename}>FirasAhmed.java</span>
+            </div>
+            <pre
+              className={styles.codeBody}
+              dangerouslySetInnerHTML={{ __html: codeHtml }}
+            />
+          </div>
+        </div>
+
       </div>
     </section>
   );
+}
+
+function buildCodeHtml(s: Record<string, string>): string {
+  const kw  = (t: string) => `<span class="${s.kw}">${t}</span>`;
+  const tp  = (t: string) => `<span class="${s.tp}">${t}</span>`;
+  const str = (t: string) => `<span class="${s.str}">${t}</span>`;
+  const cm  = (t: string) => `<span class="${s.cm}">${t}</span>`;
+  const cls = (t: string) => `<span class="${s.cls}">${t}</span>`;
+  const fn  = (t: string) => `<span class="${s.fn}">${t}</span>`;
+  const num = (t: string) => `<span class="${s.num}">${t}</span>`;
+
+  return [
+    `${kw("public class")} ${cls("FirasAhmed")} {`,
+    ``,
+    `  ${tp("String")} name = ${str('"Firas Ahmed"')};`,
+    `  ${tp("String")} role = ${str('"Backend Engineer"')};`,
+    `  ${tp("String")}[] stack = {`,
+    `    ${str('"Java"')}, ${str('"Spring Boot"')},`,
+    `    ${str('"REST APIs"')}, ${str('"Cloud"')}`,
+    `  };`,
+    `  ${tp("boolean")} writesAboutIt = ${num("true")};`,
+    ``,
+    `  ${tp("void")} ${fn("buildSystems")}() {`,
+    `    ${cm("// clean · robust · scalable")}`,
+    `  }`,
+    `}`,
+    `<span class="${s.cursor}"></span>`,
+  ].join("\n");
 }
