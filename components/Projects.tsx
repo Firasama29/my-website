@@ -1,4 +1,12 @@
-const projects = [
+interface Project {
+  name: string;
+  description: string;
+  tags: string[];
+  demo: string;
+  repo?: string;
+}
+
+const projects: Project[] = [
   {
     name: "Menu Visualizer",
     description:
@@ -6,6 +14,13 @@ const projects = [
     tags: ["JavaScript", "Google Custom Search", "DALL-E 3", "OpenAI"],
     demo: "https://menu-vis.netlify.app",
     repo: "https://github.com/Firasama29/menu-visualizer",
+  },
+  {
+    name: "Tech Blog (Jekyll)",
+    description:
+      "A technical blog built with Jekyll and hosted on GitHub Pages, covering Java, Python, and backend development topics.",
+    tags: ["Jekyll", "GitHub Pages", "Chirpy Theme"],
+    demo: "https://firasama29.github.io/",
   },
 ];
 
@@ -46,14 +61,16 @@ export default function Projects() {
                 >
                   Live demo
                 </a>
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border border-slate-300 text-slate-700 px-4 py-2 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
-                >
-                  GitHub
-                </a>
+                {project.repo && (
+                  <a
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-slate-300 text-slate-700 px-4 py-2 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
+                  >
+                    GitHub
+                  </a>
+                )}
               </div>
             </div>
           ))}
