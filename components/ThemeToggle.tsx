@@ -1,14 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setDark(isDark);
-  }, []);
+  const [dark, setDark] = useState<boolean | null>(() => {
+    if (typeof document === "undefined") return null;
+    return document.documentElement.classList.contains("dark");
+  });
 
   function toggle() {
     const next = !dark;
