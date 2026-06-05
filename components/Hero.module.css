@@ -25,7 +25,59 @@
   background-color: #ffffff;
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
   background-size: 22px 22px;
+}
+
+:global(.dark) .hero {
+  background-color: #0f172a;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   padding: 60px 24px 72px;
+}
+
+:global(.dark) .hero::before {
+  color: rgba(255, 255, 255, 0.025);
+}
+
+:global(.dark) .name {
+  color: #f1f5f9;
+}
+
+:global(.dark) .bio {
+  color: #94a3b8;
+}
+
+:global(.dark) .ctaPrimary {
+  background: #f1f5f9;
+  color: #0d0d09;
+  border-color: #f1f5f9;
+}
+
+:global(.dark) .ctaPrimary:hover {
+  background: #d4480c;
+  color: #ffffff;
+  border-color: #d4480c;
+}
+
+:global(.dark) .ctaSecondary {
+  color: #cbd5e1;
+  border-color: rgba(203, 213, 225, 0.3);
+}
+
+:global(.dark) .ctaSecondary:hover {
+  color: #d4480c;
+  border-color: #d4480c;
+}
+
+:global(.dark) .codeWindow {
+  background: #282c34;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+:global(.dark) .windowBar {
+  background: #21252b;
+  border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
 /* Faint decorative brace — backend engineer's symbol */
