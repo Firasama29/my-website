@@ -25,6 +25,8 @@ npm run build   # production build — run this to verify before committing
 - **Always run `npm run build` before committing** — catches type errors that tests won't
 - **PRs target `main`** by default unless intentionally stacking on another feature branch
 - **Netlify auto-deploys on every push to `main`** — no manual deploy steps needed after the initial site setup
+- **Conventional Commits** — prefix every commit message: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`. Subject line under 72 chars, imperative mood (e.g. `feat: add GitHub activity section`)
+- **Semantic versioning** — tag significant milestones as releases: `git tag v1.0.0`. Bump MINOR for new sections, PATCH for fixes, MAJOR for full redesigns
 
 ---
 
@@ -148,3 +150,7 @@ Do not add database or network calls here — this is a static site; all data co
 - Blog images (articles referencing GitHub-hosted images will have broken image links until images are copied to `public/` and paths updated)
 - Dark mode
 - LinkedIn link in Contact section
+- **Dedicated About section** — fuller bio beyond the hero tagline; include photo, background story, what drives you (2-3 paragraphs)
+- **GitHub activity / stats section** — embed contribution graph or stats badge to show active development
+- **Resume / CV download** — a downloadable PDF linked from the hero or nav
+- **CI/CD pipeline** — GitHub Actions workflow that runs `npm run build` on every PR to catch build failures before merge
