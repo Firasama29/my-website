@@ -27,6 +27,9 @@ npm run build   # production build — run this to verify before committing
 - **Netlify auto-deploys on every push to `main`** — no manual deploy steps needed after the initial site setup
 - **Conventional Commits** — prefix every commit message: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`. Subject line under 72 chars, imperative mood (e.g. `feat: add GitHub activity section`)
 - **Semantic versioning** — tag significant milestones as releases: `git tag v1.0.0`. Bump MINOR for new sections, PATCH for fixes, MAJOR for full redesigns
+- **Sync main before committing — always** — before making any commits on a feature branch, switch to `main`, run `git pull`, then switch back. Do this BEFORE committing, not after. Committing first then syncing risks landing commits on a stale diverged branch, requiring a force push to fix.
+- **Always push via a feature branch and PR** — when asked to push with no active feature branch or open PR, create a new branch first, then commit, push, and open a PR. Never push directly to main.
+- **Checkout main after PR — NO EXCEPTIONS** — once a PR is created, ALWAYS switch back to `main` immediately. Never skip this. Do not claim the task is done until `git checkout main` has been confirmed.
 
 ---
 
