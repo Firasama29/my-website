@@ -27,10 +27,10 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="bg-slate-50 py-20">
+    <section id="skills" className="bg-slate-50 dark:bg-slate-800 py-20">
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-slate-800 mb-2">Skills</h2>
-        <p className="text-slate-500 mb-10">Technologies I work with</p>
+        <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-2">Skills</h2>
+        <p className="text-slate-500 dark:text-slate-400 mb-10">Technologies I work with</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map(({ category, items }) => (
             <Card key={category}>

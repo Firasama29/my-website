@@ -46,13 +46,13 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
             <Badge key={tag}>{tag}</Badge>
           ))}
         </div>
-        <h1 className="text-4xl font-bold text-slate-800 leading-tight mb-3">
+        <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 leading-tight mb-3">
           {post.title}
         </h1>
-        <time className="text-sm text-slate-400">{formatted}</time>
+        <time className="text-sm text-slate-400 dark:text-slate-500">{formatted}</time>
       </header>
       <article
-        className="prose prose-slate prose-lg max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-code:text-blue-700 prose-code:bg-slate-100 prose-code:px-1 prose-code:rounded"
+        className="prose prose-slate prose-lg max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-code:text-blue-700 dark:prose-code:text-blue-400 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1 prose-code:rounded dark:prose-invert"
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
       <RelatedPosts posts={related} />

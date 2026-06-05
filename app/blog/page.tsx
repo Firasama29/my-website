@@ -12,8 +12,8 @@ export default function BlogPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold text-slate-800 mb-2">Blog</h1>
-      <p className="text-slate-500 mb-10">
+      <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">Blog</h1>
+      <p className="text-slate-500 dark:text-slate-400 mb-10">
         Thoughts on Java, backend engineering, and software development.
       </p>
       <BlogList posts={posts} tags={tags} />
