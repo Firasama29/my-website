@@ -33,15 +33,15 @@ export default function BlogCard({
         ))}
       </div>
       <Link href={`/blog/${slug}`}>
-        <h2 className="text-lg font-semibold text-slate-800 hover:text-blue-600 transition-colors leading-snug">
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 hover:text-blue-600 transition-colors leading-snug">
           {title}
         </h2>
       </Link>
-      <p className="text-slate-500 text-sm leading-relaxed line-clamp-3">
+      <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-3">
         {excerpt}
       </p>
       <div className="flex items-center justify-between mt-auto pt-2">
-        <time className="text-xs text-slate-400">
+        <time className="text-xs text-slate-400 dark:text-slate-500">
           {formatted} · {readingTime} min read
         </time>
         <Link
