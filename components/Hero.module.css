@@ -22,7 +22,7 @@
   align-items: center;
   overflow: hidden;
   /* Dot grid atmosphere */
-  background-color: #ffffff;
+  background-color: #faf9f7;
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
   background-size: 22px 22px;
   padding: 60px 24px 72px;
