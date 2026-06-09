@@ -76,9 +76,6 @@ function buildJavaHtml(): string {
     `  };`,
     `  ${tp("boolean")} writesAboutIt = ${num("true")};`,
     ``,
-    `  ${tp("void")} ${fn("buildSystems")}() {`,
-    `    ${cm("// clean · robust · scalable")}`,
-    `  }`,
     `}`,
     `<span class="${styles.cursor}"></span>`,
   ].join("\n");
