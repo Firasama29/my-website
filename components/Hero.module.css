@@ -292,6 +292,9 @@
   font-family: var(--font-jetbrains), var(--font-geist-mono), 'SF Mono', Consolas, monospace;
   font-size: 13px;
   line-height: 1.85;
+  /* Fixed to fit the tallest snippet (Python/SQL, 14 lines) so switching
+     snippets never resizes the window or shifts the hero layout. */
+  height: calc(48px + 25.9em);
   color: #abb2bf;
   overflow-x: auto;
   margin: 0;
