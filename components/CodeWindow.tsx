@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 
 type SnippetDef = { lang: string; filename: string; html: string };
@@ -11,31 +11,66 @@ const SNIPPETS: SnippetDef[] = [
   { lang: "sql",    filename: "firas_ahmed.sql",  html: buildSqlHtml()    },
 ];
 
+const CYCLE_INTERVAL_MS = 4000;
+const FADE_DURATION_MS = 300;
+
 export default function CodeWindow() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
+  const indexRef = useRef(0);
+  const switchToRef = useRef<(newIndex: number) => void>(() => {});
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const cycleTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    indexRef.current = index;
+  }, [index]);
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
 
-    let timeoutId: ReturnType<typeof setTimeout>;
+    const scheduleCycle = () => {
+      cycleTimerRef.current = setTimeout(() => {
+        switchTo((indexRef.current + 1) % SNIPPETS.length);
+      }, CYCLE_INTERVAL_MS);
+    };
 
-    const intervalId = setInterval(() => {
+    const switchTo = (newIndex: number) => {
+      clearTimeout(fadeTimerRef.current);
+      clearTimeout(cycleTimerRef.current);
+
+      if (reduced) {
+        setIndex(newIndex);
+        return;
+      }
+
       setVisible(false);
-      timeoutId = setTimeout(() => {
-        setIndex(prev => (prev + 1) % SNIPPETS.length);
+      fadeTimerRef.current = setTimeout(() => {
+        setIndex(newIndex);
         setVisible(true);
-      }, 300);
-    }, 4000);
+        scheduleCycle();
+      }, FADE_DURATION_MS);
+    };
+
+    switchToRef.current = switchTo;
+
+    if (!reduced) {
+      scheduleCycle();
+    }
 
     return () => {
-      clearInterval(intervalId);
-      clearTimeout(timeoutId);
+      clearTimeout(fadeTimerRef.current);
+      clearTimeout(cycleTimerRef.current);
     };
   }, []);
 
-  const { lang, filename, html } = SNIPPETS[index];
+  const handleTabClick = (i: number) => {
+    if (i === indexRef.current) return;
+    switchToRef.current(i);
+  };
+
+  const { filename, html } = SNIPPETS[index];
   const fade: React.CSSProperties = {
     opacity: visible ? 1 : 0,
     transition: "opacity 300ms ease",
@@ -44,7 +79,19 @@ export default function CodeWindow() {
   return (
     <div className={styles.codeWindow}>
       <div className={styles.windowBar}>
-        <span className={styles.windowLang} style={fade}>{lang}</span>
+        <div className={styles.tabs}>
+          {SNIPPETS.map((snippet, i) => (
+            <button
+              key={snippet.lang}
+              type="button"
+              className={`${styles.tab} ${i === index ? styles.tabActive : ""}`}
+              aria-pressed={i === index}
+              onClick={() => handleTabClick(i)}
+            >
+              {snippet.lang}
+            </button>
+          ))}
+        </div>
         <span className={styles.windowFilename} style={fade}>{filename}</span>
       </div>
       <pre
