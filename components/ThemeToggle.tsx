@@ -1,15 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState<boolean | null>(() => {
-    if (typeof document === "undefined") return null;
-    return document.documentElement.classList.contains("dark");
-  });
+  // True only once the client has hydrated, so the first client render
+  // matches the server-rendered placeholder and avoids a hydration mismatch.
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+
+  const [darkOverride, setDarkOverride] = useState<boolean | null>(null);
+
+  // Render a placeholder until mounted (avoids hydration mismatch)
+  if (!mounted) {
+    return <span className="w-8 h-8 inline-block" aria-hidden="true" />;
+  }
+
+  const dark = darkOverride ?? document.documentElement.classList.contains("dark");
 
   function toggle() {
     const next = !dark;
-    setDark(next);
+    setDarkOverride(next);
     if (next) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -17,11 +27,6 @@ export default function ThemeToggle() {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
-  }
-
-  // Render nothing until we know the theme (avoids hydration mismatch)
-  if (dark === null) {
-    return <span className="w-8 h-8 inline-block" aria-hidden="true" />;
   }
 
   return (
