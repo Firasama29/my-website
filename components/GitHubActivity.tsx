@@ -64,7 +64,7 @@ export default async function GitHubActivity() {
         </p>
 
         {calendar && (
-          <div className="mb-12 overflow-x-auto rounded-xl border border-[#bbf7d0] dark:border-[#21262d] bg-[#f6fef9] dark:bg-[#0d1117] p-6">
+          <div className="relative mb-12 rounded-xl border border-[#bbf7d0] dark:border-[#21262d] bg-[#f6fef9] dark:bg-[#0d1117] p-3 sm:p-6">
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm font-semibold text-green-800 dark:text-slate-200">
                 {calendar.totalContributions.toLocaleString()} contributions in the last year
@@ -79,47 +79,54 @@ export default async function GitHubActivity() {
               </a>
             </div>
 
-            <div className="flex gap-1 items-start">
-              {/* Day labels */}
-              <div className="flex flex-col gap-[3px] pt-[18px] mr-1 shrink-0">
-                {DAY_LABELS.map((label, i) => (
-                  <div
-                    key={i}
-                    className="h-[10px] w-6 text-[9px] text-slate-400 dark:text-[#484f58] leading-[10px]"
-                  >
-                    {label}
+            <div className="relative">
+              <div className="overflow-x-auto">
+                <div className="flex gap-1 items-start">
+                  {/* Day labels - hidden on mobile */}
+                  <div className="hidden sm:flex flex-col gap-[3px] pt-[18px] mr-1 shrink-0">
+                    {DAY_LABELS.map((label, i) => (
+                      <div
+                        key={i}
+                        className="h-[10px] w-6 text-[9px] text-slate-400 dark:text-[#484f58] leading-[10px]"
+                      >
+                        {label}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
 
-              <div className="flex flex-col">
-                {/* Month labels */}
-                <div className="flex gap-[3px] mb-1 h-[14px]">
-                  {calendar.weeks.map((_, wi) => (
-                    <div
-                      key={wi}
-                      className="w-[10px] shrink-0 text-[9px] text-slate-400 dark:text-[#484f58] leading-[14px] overflow-visible whitespace-nowrap"
-                    >
-                      {monthLabels.get(wi) ?? ""}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tile grid */}
-                <div className="flex gap-[3px]">
-                  {calendar.weeks.map((week, wi) => (
-                    <div key={wi} className="flex flex-col gap-[3px]">
-                      {week.map((day) => (
+                  <div className="flex flex-col">
+                    {/* Month labels */}
+                    <div className="flex gap-[3px] mb-1 h-[14px]">
+                      {calendar.weeks.map((_, wi) => (
                         <div
-                          key={day.date}
-                          title={`${day.date}: ${day.contributionCount} contribution${day.contributionCount !== 1 ? "s" : ""}`}
-                          className={`w-[10px] h-[10px] rounded-[2px] ${getCellClass(getLevel(day.contributionCount, max))}`}
-                        />
+                          key={wi}
+                          className="w-[10px] shrink-0 text-[9px] text-slate-400 dark:text-[#484f58] leading-[14px] overflow-visible whitespace-nowrap"
+                        >
+                          {monthLabels.get(wi) ?? ""}
+                        </div>
                       ))}
                     </div>
-                  ))}
+
+                    {/* Tile grid */}
+                    <div className="flex gap-[3px]">
+                      {calendar.weeks.map((week, wi) => (
+                        <div key={wi} className="flex flex-col gap-[3px]">
+                          {week.map((day) => (
+                            <div
+                              key={day.date}
+                              title={`${day.date}: ${day.contributionCount} contribution${day.contributionCount !== 1 ? "s" : ""}`}
+                              className={`w-[10px] h-[10px] rounded-[2px] ${getCellClass(getLevel(day.contributionCount, max))}`}
+                            />
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* Scroll-fade affordance - mobile only */}
+              <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#f6fef9] dark:from-[#0d1117] to-transparent pointer-events-none sm:hidden" />
             </div>
 
             {/* Legend */}
