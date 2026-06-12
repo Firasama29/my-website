@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
 import TableOfContents from "@/components/TableOfContents";
+import CodeBlock from "@/components/CodeBlock";
 import { Badge } from "@/components/ui/badge";
 
 const MIN_HEADINGS_FOR_TOC = 3;
@@ -72,9 +73,9 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
               </div>
             </details>
           )}
-          <article
+          <CodeBlock
+            html={post.contentHtml}
             className="prose prose-slate prose-lg max-w-none prose-headings:font-semibold prose-headings:scroll-mt-24 prose-a:text-blue-600 prose-code:text-blue-700 dark:prose-code:text-blue-400 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1 prose-code:rounded dark:prose-invert"
-            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
           <RelatedPosts posts={related} />
         </div>
