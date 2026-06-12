@@ -1,4 +1,5 @@
 import { getPostBySlug, getAllSlugs, getRelatedPosts } from "@/lib/posts";
+import { slugifyTag } from "@/lib/tags";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import RelatedPosts from "@/components/RelatedPosts";
@@ -43,7 +44,11 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
       <header className="mb-10">
         <div className="flex flex-wrap gap-2 mb-4">
           {post.tags.map((tag) => (
-            <Badge key={tag}>{tag}</Badge>
+            <Link key={tag} href={`/blog/tags/${slugifyTag(tag)}`}>
+              <Badge className="hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+                {tag}
+              </Badge>
+            </Link>
           ))}
         </div>
         <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 leading-tight mb-3">
