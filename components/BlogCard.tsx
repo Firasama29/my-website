@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { slugifyTag } from "@/lib/tags";
 
 interface BlogCardProps {
   slug: string;
@@ -29,7 +30,11 @@ export default function BlogCard({
     <Card className="p-6 hover:shadow-md hover:border-blue-100 transition-all flex flex-col gap-3">
       <div className="flex items-center gap-2 flex-wrap">
         {tags.slice(0, 3).map((tag) => (
-          <Badge key={tag}>{tag}</Badge>
+          <Link key={tag} href={`/blog/tags/${slugifyTag(tag)}`}>
+            <Badge className="hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+              {tag}
+            </Badge>
+          </Link>
         ))}
       </div>
       <Link href={`/blog/${slug}`}>
