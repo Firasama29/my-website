@@ -16,8 +16,15 @@ export interface PostMeta {
   readingTime: number;
 }
 
+export interface Heading {
+  id: string;
+  text: string;
+  level: 2 | 3;
+}
+
 export interface Post extends PostMeta {
   contentHtml: string;
+  headings: Heading[];
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -55,6 +62,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     .use(remarkHtml, { sanitize: false })
     .process(content);
 
+  const { html: contentHtml, headings } = addHeadingIds(processed.toString());
+
   return {
     slug,
     title: data.title ?? slug,
@@ -62,8 +71,45 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     excerpt: data.excerpt ?? "",
     tags: data.tags ?? [],
     readingTime,
-    contentHtml: processed.toString(),
+    contentHtml,
+    headings,
   };
+}
+
+function addHeadingIds(html: string): { html: string; headings: Heading[] } {
+  const headings: Heading[] = [];
+  const slugCounts = new Map<string, number>();
+
+  const html2 = html.replace(/<h([23])>([\s\S]*?)<\/h\1>/g, (_match, level, inner) => {
+    const text = decodeHtmlEntities(inner.replace(/<[^>]+>/g, "").trim());
+    const baseSlug = slugifyHeading(text);
+
+    const count = slugCounts.get(baseSlug) ?? 0;
+    slugCounts.set(baseSlug, count + 1);
+    const id = count === 0 ? baseSlug : `${baseSlug}-${count}`;
+
+    headings.push({ id, text, level: Number(level) as 2 | 3 });
+    return `<h${level} id="${id}">${inner}</h${level}>`;
+  });
+
+  return { html: html2, headings };
+}
+
+function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
 }
 
 export function getAllSlugs(): string[] {
