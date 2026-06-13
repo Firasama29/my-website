@@ -9,9 +9,10 @@ const SNIPPETS: SnippetDef[] = [
   { lang: "java",   filename: "FirasAhmed.java",  html: buildJavaHtml()   },
   { lang: "python", filename: "firas_ahmed.py",   html: buildPythonHtml() },
   { lang: "sql",    filename: "firas_ahmed.sql",  html: buildSqlHtml()    },
+  { lang: "bash",   filename: "firas_ahmed.sh",   html: buildBashHtml()   },
 ];
 
-const CYCLE_INTERVAL_MS = 4000;
+const CYCLE_INTERVAL_MS = 6000;
 const FADE_DURATION_MS = 300;
 
 export default function CodeWindow() {
@@ -175,6 +176,35 @@ function buildSqlHtml(): string {
     ``,
     `${kw("SELECT")} ${fn("build_systems")}();`,
     `${cm("-- clean · robust · scalable")}`,
+    `<span class="${styles.cursor}"></span>`,
+  ].join("\n");
+}
+
+function buildBashHtml(): string {
+  const kw  = (t: string) => `<span class="${styles.kw}">${t}</span>`;
+  const str = (t: string) => `<span class="${styles.str}">${t}</span>`;
+  const cm  = (t: string) => `<span class="${styles.cm}">${t}</span>`;
+  const fn  = (t: string) => `<span class="${styles.fn}">${t}</span>`;
+  const num = (t: string) => `<span class="${styles.num}">${t}</span>`;
+
+  return [
+    `${cm("#!/usr/bin/env bash")}`,
+    `${cm("# Firas Ahmed")}`,
+    ``,
+    `NAME=${str('"Firas Ahmed"')}`,
+    `ROLE=${str('"Backend Engineer"')}`,
+    `STACK=(`,
+    `  ${str('"Java"')} ${str('"Spring Boot"')}`,
+    `  ${str('"REST APIs"')} ${str('"Cloud"')}`,
+    `)`,
+    `WRITES_ABOUT_IT=${num("true")}`,
+    ``,
+    `${fn("build_systems")}() {`,
+    `  ${cm("# clean · robust · scalable")}`,
+    `  ${kw("echo")} ${str('"$NAME builds $ROLE systems"')}`,
+    `}`,
+    ``,
+    `${fn("build_systems")}`,
     `<span class="${styles.cursor}"></span>`,
   ].join("\n");
 }
