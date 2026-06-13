@@ -135,3 +135,22 @@ export function getRelatedPosts(slug: string, tags: string[]): PostMeta[] {
 export function getAllTags(): string[] {
   return [...new Set(getAllPosts().flatMap((p) => p.tags))].sort();
 }
+
+export interface AdjacentPosts {
+  previous: PostMeta | null;
+  next: PostMeta | null;
+}
+
+export function getAdjacentPosts(slug: string): AdjacentPosts {
+  const posts = getAllPosts();
+  const index = posts.findIndex((p) => p.slug === slug);
+
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: index < posts.length - 1 ? posts[index + 1] : null,
+    next: index > 0 ? posts[index - 1] : null,
+  };
+}
