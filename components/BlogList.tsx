@@ -3,6 +3,8 @@
 import { useState } from "react";
 import BlogCard from "@/components/BlogCard";
 import { Button } from "@/components/ui/button";
+import { getTagColorClasses, getTagSolidColorClasses } from "@/lib/tags";
+import { cn } from "@/lib/utils";
 import type { PostMeta } from "@/lib/posts";
 
 interface BlogListProps {
@@ -36,9 +38,14 @@ export default function BlogList({ posts, tags }: BlogListProps) {
           <Button
             key={tag}
             onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
-            variant={selectedTag === tag ? "default" : "secondary"}
+            variant="tag"
             size="sm"
-            className="rounded-full"
+            className={cn(
+              "rounded-full",
+              selectedTag === tag
+                ? getTagSolidColorClasses(tag)
+                : `${getTagColorClasses(tag)} hover:brightness-95 dark:hover:brightness-110 transition`
+            )}
           >
             {tag} ({tagCounts[tag]})
           </Button>

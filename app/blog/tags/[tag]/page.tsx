@@ -1,6 +1,8 @@
 import { getAllPosts, getAllTags } from "@/lib/posts";
-import { slugifyTag } from "@/lib/tags";
+import { slugifyTag, getTagColorClasses } from "@/lib/tags";
 import BlogCard from "@/components/BlogCard";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -32,8 +34,11 @@ export default async function BlogTagPage(props: PageProps<"/blog/tags/[tag]">) 
       <Link href="/blog" className="text-sm text-blue-600 hover:underline mb-8 inline-block">
         ← Back to blog
       </Link>
-      <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
-        Tag: {matchedTag}
+      <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2 flex items-center gap-3">
+        Tag:
+        <Badge className={cn(getTagColorClasses(matchedTag), "text-base px-3 py-1")}>
+          {matchedTag}
+        </Badge>
       </h1>
       <p className="text-slate-500 dark:text-slate-400 mb-10">
         {posts.length} {posts.length === 1 ? "post" : "posts"} tagged &ldquo;{matchedTag}&rdquo;
