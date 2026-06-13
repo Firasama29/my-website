@@ -16,6 +16,7 @@ const buttonVariants = cva(
         secondary:
           "bg-white border border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600",
         ghost: "bg-transparent text-slate-600 hover:bg-slate-50 hover:text-blue-600",
+        tag: "",
       },
       size: {
         default: "px-6 py-3 text-sm",

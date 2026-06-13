@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { slugifyTag } from "@/lib/tags";
+import { slugifyTag, getTagColorClasses } from "@/lib/tags";
+import { cn } from "@/lib/utils";
 
 interface BlogCardProps {
   slug: string;
@@ -31,7 +32,7 @@ export default function BlogCard({
       <div className="flex items-center gap-2 flex-wrap">
         {tags.slice(0, 3).map((tag) => (
           <Link key={tag} href={`/blog/tags/${slugifyTag(tag)}`}>
-            <Badge className="hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
+            <Badge className={cn(getTagColorClasses(tag), "hover:brightness-95 dark:hover:brightness-110 transition")}>
               {tag}
             </Badge>
           </Link>
