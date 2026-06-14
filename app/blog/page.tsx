@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, getAllTags } from "@/lib/posts";
 import BlogList from "@/components/BlogList";
 import BlogPagination from "@/components/BlogPagination";
 
@@ -24,7 +24,11 @@ export default async function BlogPage(props: PageProps<"/blog">) {
 
   const start = (currentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = posts.slice(start, start + POSTS_PER_PAGE);
-  const tags = [...new Set(paginatedPosts.flatMap((p) => p.tags))].sort();
+
+  const tags = getAllTags();
+  const tagCounts = Object.fromEntries(
+    tags.map((tag) => [tag, posts.filter((p) => p.tags.includes(tag)).length])
+  );
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">
@@ -32,7 +36,7 @@ export default async function BlogPage(props: PageProps<"/blog">) {
       <p className="text-slate-500 dark:text-slate-400 mb-10">
         Thoughts on Java, backend engineering, and software development.
       </p>
-      <BlogList posts={paginatedPosts} tags={tags} />
+      <BlogList posts={paginatedPosts} tags={tags} tagCounts={tagCounts} />
       <BlogPagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
