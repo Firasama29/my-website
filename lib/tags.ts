@@ -55,23 +55,9 @@ const LIGHT_COLORS: Record<TagCategory, string> = {
   career: "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400",
 };
 
-const SOLID_COLORS: Record<TagCategory, string> = {
-  java: "bg-blue-600 text-white hover:bg-blue-700",
-  python: "bg-amber-600 text-white hover:bg-amber-700",
-  ai: "bg-violet-600 text-white hover:bg-violet-700",
-  tools: "bg-emerald-600 text-white hover:bg-emerald-700",
-  career: "bg-rose-600 text-white hover:bg-rose-700",
-};
-
 const DEFAULT_LIGHT = "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300";
-const DEFAULT_SOLID = "bg-slate-600 text-white hover:bg-slate-700";
 
 export function getTagColorClasses(tag: string): string {
   const category = TAG_CATEGORIES[tag];
   return category ? LIGHT_COLORS[category] : DEFAULT_LIGHT;
-}
-
-export function getTagSolidColorClasses(tag: string): string {
-  const category = TAG_CATEGORIES[tag];
-  return category ? SOLID_COLORS[category] : DEFAULT_SOLID;
 }

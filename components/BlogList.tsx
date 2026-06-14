@@ -1,58 +1,34 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
-import { Button } from "@/components/ui/button";
-import { getTagColorClasses, getTagSolidColorClasses } from "@/lib/tags";
+import { slugifyTag, getTagColorClasses } from "@/lib/tags";
 import { cn } from "@/lib/utils";
 import type { PostMeta } from "@/lib/posts";
 
 interface BlogListProps {
   posts: PostMeta[];
   tags: string[];
+  tagCounts: Record<string, number>;
 }
 
-export default function BlogList({ posts, tags }: BlogListProps) {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
-
-  const tagCounts = Object.fromEntries(
-    tags.map((tag) => [tag, posts.filter((p) => p.tags.includes(tag)).length])
-  );
-
-  const filtered = selectedTag
-    ? posts.filter((p) => p.tags.includes(selectedTag))
-    : posts;
-
+export default function BlogList({ posts, tags, tagCounts }: BlogListProps) {
   return (
     <>
       <div className="flex flex-wrap gap-2 mb-10">
-        <Button
-          onClick={() => setSelectedTag(null)}
-          variant={selectedTag === null ? "default" : "secondary"}
-          size="sm"
-          className="rounded-full"
-        >
-          All
-        </Button>
         {tags.map((tag) => (
-          <Button
+          <Link
             key={tag}
-            onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
-            variant="tag"
-            size="sm"
+            href={`/blog/tags/${slugifyTag(tag)}`}
             className={cn(
-              "rounded-full",
-              selectedTag === tag
-                ? getTagSolidColorClasses(tag)
-                : `${getTagColorClasses(tag)} hover:brightness-95 dark:hover:brightness-110 transition`
+              "rounded-full px-4 py-1.5 text-sm font-medium transition hover:brightness-95 dark:hover:brightness-110",
+              getTagColorClasses(tag)
             )}
           >
             {tag} ({tagCounts[tag]})
-          </Button>
+          </Link>
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((post) => (
+        {posts.map((post) => (
           <BlogCard key={post.slug} {...post} />
         ))}
       </div>
