@@ -1,7 +1,7 @@
 ---
 title: "Difference between A Setter Method and Constructor When Setting a Variable’s Value"
 date: "2025-10-03"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "Java provides different ways to set a value of an instance variable of a class. Among them are two common approaches: using the constructor and using the setter"
 ---
 Java provides different ways to set a value of an instance variable of a class. Among them are two common approaches: using the constructor and using the setter method. In this article we’re going to address the difference between both.

@@ -1,7 +1,7 @@
 ---
 title: "How to Call OpenAI API from postman"
 date: "2024-03-21"
-tags: ["AI","OpenAI","API"]
+tags: ["AI"]
 excerpt: "By now, it’s likely that the majority of people have come across the terms ‘ChatGPT’ and ‘AI’ in various contexts. OpenAI has truly pioneered a revolutionary te"
 ---
 By now, it’s likely that the majority of people have come across the terms ‘ChatGPT’ and ‘AI’ in various contexts. OpenAI has truly pioneered a revolutionary technology by introducing generative Artificial Intelligence, turning these once-specialized terms into nearly household names. Moreover, it seems that the forthcoming years will unveil even more remarkable surprises, further solidifying OpenAI’s role as the leader in the realm of artificial intelligence.

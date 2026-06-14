@@ -1,7 +1,7 @@
 ---
 title: "String Pool In Java"
 date: "2025-10-13"
-tags: ["Java","Memory Management"]
+tags: ["Java"]
 excerpt: "Photo by [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd?utmcontent=creditCopyText&utmmedium=referral&utmsource=unsplash) on [Unsplash](https://unsplash.com/p"
 ---
 Press enter or click to view image in full size

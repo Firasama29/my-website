@@ -1,7 +1,7 @@
 ---
 title: "Managing Different Java versions with SDKMAN!"
 date: "2025-09-12"
-tags: ["Java","Tools","SDKMAN"]
+tags: ["Java"]
 excerpt: "Imagine working on one or multiple java projects on the same machine, each requiring a different Java version. Typically, you would need to manually download in"
 ---
 ![kevin-ku-w7ZyuGYNpRQ-unsplash.jpg](../images/kevin-ku-w7ZyuGYNpRQ-unsplash.jpg)

@@ -1,7 +1,7 @@
 ---
 title: "Basic Java Questions and Answers (Part 3) — Instance vs Static"
 date: "2024-03-20"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 3, covering"
 ---
 I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 3, covering the concepts of instance vs static variables and methods and the difference between them.

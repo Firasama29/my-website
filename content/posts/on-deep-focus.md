@@ -1,7 +1,7 @@
 ---
 title: "Reflections on Deep Focus"
 date: "2025-10-02"
-tags: ["Reflections", "Productivity"]
+tags: ["Reflections"]
 excerpt: "Personal reflections on the importance of deep focus in a world full of distractions — especially for software developers who depend on sustained, concentrated thinking."
 ---
 

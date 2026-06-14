@@ -1,7 +1,7 @@
 ---
 title: "Basic Java Questions and Answers (Part 1) — Type-Casting"
 date: "2024-03-03"
-tags: ["Java","Type System"]
+tags: ["Java"]
 excerpt: "I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 1, covering"
 ---
 I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 1, covering the concepts of ***type-casting***, ***upcasting*** and ***downcasting***.

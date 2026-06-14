@@ -1,7 +1,7 @@
 ---
 title: "Configuring Claude Code Hooks to Receive Notifications"
 date: "2026-06-12"
-tags: ["AI","Claude","Tools"]
+tags: ["AI"]
 excerpt: "How I configured Claude Code hooks with terminal sounds and ntfy push notifications to track multi-session progress, even when I'm away from my desk."
 ---
 I've been using Claude Code for development on side projects for a while and I started experimenting with Claude's mobile app.

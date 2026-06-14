@@ -1,7 +1,7 @@
 ---
 title: "Working with PDF Files in Python"
 date: "2025-12-07"
-tags: ["Python", "PDF", "Scripts"]
+tags: ["Python"]
 excerpt: "A practical guide to handling PDF files in Python — merging, splitting, converting to DOCX, and converting images to PDF using PyPDF2 and Pillow."
 ---
 

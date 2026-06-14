@@ -1,7 +1,7 @@
 ---
 title: "HTTP"
 date: "2025-12-09"
-tags: ["HTTP", "Tech", "Backend"]
+tags: ["Backend"]
 excerpt: "A concise overview of HTTP — the foundation of web communication. Covers the request-response model, HTTP methods, request/response structure, status codes, HTTPS, and idempotency."
 ---
 

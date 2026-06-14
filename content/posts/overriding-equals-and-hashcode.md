@@ -1,7 +1,7 @@
 ---
 title: "Why do we need to override equals() and hashcode()?"
 date: "2025-10-03"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "### Why does the default equals() method of Object return false when two objects have the same value?"
 ---
 or
