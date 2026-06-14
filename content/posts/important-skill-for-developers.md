@@ -1,7 +1,7 @@
 ---
 title: "The Most Important Skill as a Developer"
 date: "2024-02-05"
-tags: ["Career","Problem Solving","Developer Tips"]
+tags: ["Developer Tips"]
 excerpt: "Contrary to popular belief, software developers don't write code for the majority of their time; instead, they dedicate 80% of their time to solving problems, s"
 ---
 Contrary to popular belief, software developers don't write code for the majority of their time; instead, they dedicate 80% of their time to solving problems, seeking optimal ways to write code or finding the best library or framework for their projects. Coding is simply the means to apply their findings.

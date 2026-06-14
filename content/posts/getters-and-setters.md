@@ -1,7 +1,7 @@
 ---
 title: "Why Do We Use Getters and Setters in Java?"
 date: "2024-03-25"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "Getters and setters provide controlled access to private fields in Java. Here's what they are, how they're used, and why they matter for encapsulation."
 ---
 Getters and setters are simply methods that are commonly used in Java applications to access and modify private fields of a class. They are typically defined with the below syntax:

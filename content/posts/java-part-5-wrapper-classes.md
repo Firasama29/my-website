@@ -1,7 +1,7 @@
 ---
 title: "Basic Java Questions and Answers (Part 5) — Wrapper Classes"
 date: "2024-03-18"
-tags: ["Java","Wrapper Classes"]
+tags: ["Java"]
 excerpt: "I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 5 of the ser"
 ---
 I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 5 of the series, covering the topic of Wrapper Classes.

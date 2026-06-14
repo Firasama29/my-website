@@ -1,7 +1,7 @@
 ---
 title: "When Should We Use A Private Constructor In Java"
 date: "2024-03-02"
-tags: ["Java","Design Patterns"]
+tags: ["Java"]
 excerpt: "A constructor in Java is a special type of method that has the same name as the class and is used to initialize objects. It is automatically called when creatin"
 ---
 A constructor in Java is a special type of method that has the same name as the class and is used to initialize objects. It is automatically called when creating an object of a class using the keyword <pre>new</pre>.

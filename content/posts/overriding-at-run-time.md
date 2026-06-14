@@ -1,7 +1,7 @@
 ---
 title: "How Java Resolves Overridden Methods at Runtime"
 date: "2025-10-03"
-tags: ["Java","OOP","Polymorphism"]
+tags: ["Java"]
 excerpt: "<p style='text-align: center;'>Photo by Stefan Heinemann on Unsplash</p>"
 ---
 ![img_1.png](../images/img_1.png)

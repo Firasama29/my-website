@@ -1,7 +1,7 @@
 ---
 title: "Why is 1 == 1 is true but 1000 == 1000 is false When dealing with Wrapper Classes in Java?"
 date: "2024-02-18"
-tags: ["Java","Wrapper Classes"]
+tags: ["Java"]
 excerpt: "In this article, we’re going to discuss a behavior that occurs when we use the ‘==’ operator to compare Wrapper classes."
 ---
 That’s a loaded title.

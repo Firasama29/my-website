@@ -1,7 +1,7 @@
 ---
 title: "How I got motivated to do more work and be more productive"
 date: "2024-02-18"
-tags: ["Productivity","Developer Tips"]
+tags: ["Developer Tips"]
 excerpt: "Lack of motivation, procrastination and distractions are quite common problems for anyone who has loads of tasks to work on. Many books, articles and podcasts o"
 ---
 Lack of motivation, procrastination and distractions are quite common problems for anyone who has loads of tasks to work on. Many books, articles and podcasts on the subject of productivity and time management have been published to address these problems, offering tips on how to tackle distractions and leverage the most out of your time.

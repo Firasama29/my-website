@@ -1,7 +1,7 @@
 ---
 title: "Basic Java Questions and Answers (Part 2) — Constructors"
 date: "2024-03-04"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 2, covering"
 ---
 I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 2, covering the topic of **Constructors**.

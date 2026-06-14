@@ -1,7 +1,7 @@
 ---
 title: "Useful websites and tools for developers"
 date: "2024-02-05"
-tags: ["Resources","Tools"]
+tags: ["Resources"]
 excerpt: "I have compiled a list of interesting online tools and websites for developers, from simplifying JSON manipulation to converting between different data types. E"
 ---
 I have compiled a list of interesting online tools and websites for developers, from simplifying `JSON` manipulation to converting between different data types. Each tool serves a specific purpose to enhance the development workflow. Let's discuss them below:

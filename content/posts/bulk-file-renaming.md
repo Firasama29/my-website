@@ -1,7 +1,7 @@
 ---
 title: "Renaming Files in Bulk Using Python"
 date: "2025-12-12"
-tags: ["Python", "Scripts"]
+tags: ["Python"]
 excerpt: "A short Python script that renames image files in bulk using a consistent naming pattern — a practical automation exercise for developers looking to build real coding habits."
 ---
 

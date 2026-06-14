@@ -1,7 +1,7 @@
 ---
 title: "Built-in Modules in Python"
 date: "2025-12-08"
-tags: ["Python", "Modules"]
+tags: ["Python"]
 excerpt: "An overview of Python's built-in modules — what they are, why they're useful, and a tour of the most commonly used ones like os, sys, datetime, math, and calendar."
 ---
 

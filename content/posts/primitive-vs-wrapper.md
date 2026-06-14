@@ -1,7 +1,7 @@
 ---
 title: "Should we use primitive data types or Wrapper classes in Java?"
 date: "2024-02-29"
-tags: ["Java","Type System"]
+tags: ["Java"]
 excerpt: "This question occurred to me while I was immersed in some research on Wrapper Classes. This is one of the most fundamental topics in Core Java that I find inter"
 ---
 This question occurred to me while I was immersed in some research on Wrapper Classes. This is one of the most fundamental topics in Core Java that I find interesting and essential to study deeply.

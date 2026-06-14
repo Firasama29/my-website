@@ -1,7 +1,7 @@
 ---
 title: "Python's Requests Module"
 date: "2025-12-05"
-tags: ["Python", "Requests", "Modules"]
+tags: ["Python"]
 excerpt: "An introduction to Python's popular Requests library for making HTTP requests — covering GET, POST, headers, query parameters, and error handling."
 ---
 

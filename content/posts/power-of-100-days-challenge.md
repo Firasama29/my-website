@@ -1,7 +1,7 @@
 ---
 title: "The Power of the 100-days Challenge"
 date: "2024-02-29"
-tags: ["Career","Self Improvement"]
+tags: ["Career"]
 excerpt: "Earlier this year, I decided to stop contemplating the idea of committing the #100DaysOfCode challenge and actually get into it. Unfortunately, I only survived"
 ---
 Earlier this year, I decided to stop contemplating the idea of committing the **#100DaysOfCode** challenge and actually get into it. Unfortunately, I only survived the first day due to some reasons, which undoubtedly include the lack of time management and a clear outlook of what tasks I should engage in during the challenge.

@@ -1,7 +1,7 @@
 ---
 title: "Guide to Method Overloading vs. Overriding"
 date: "2025-10-03"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "Method overloading and overriding are two forms of Polymorphism in Java. In this article we’re going to discuss each concept, their characteristics and key rule"
 ---
 ![img.png](../images/img.png)

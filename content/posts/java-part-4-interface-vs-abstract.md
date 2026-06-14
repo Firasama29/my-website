@@ -1,7 +1,7 @@
 ---
 title: "Basic Java Questions & Answers (Part 4) — Interface & Abstract Class"
 date: "2024-03-18"
-tags: ["Java","OOP"]
+tags: ["Java"]
 excerpt: "I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 4, covering"
 ---
 I’ve compiled a list of questions and answers about fundamental topics in Java that I believe every Java developer should be aware of. This is part 4, covering the topic of Interface and Abstract class.

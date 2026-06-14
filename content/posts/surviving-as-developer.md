@@ -1,7 +1,7 @@
 ---
 title: "Tips for junior developers"
 date: "2024-02-02"
-tags: ["Career","Developer Tips"]
+tags: ["Developer Tips"]
 excerpt: "Starting a career in programming can feel quite challenging, whether you are a graduate or a professional from another field who decided to try something new. T"
 ---
 Starting a career in programming can feel quite challenging, whether you are a graduate or a professional from another field who decided to try something new. There are plenty of tips for junior developers all over the internet in blogs, articles and Twitter threads, but there is no harm in sharing some tips from my perspective. After all, I've learned a lot throughout my own journey and I would like to share what helped me grow as a developer. So let's talk about it:
