@@ -147,6 +147,15 @@ Do not add database or network calls here — this is a static site; all data co
 
 ---
 
+## Quality Checklists
+
+- `docs/security-checklist.md` — check before adding dependencies, external
+  links, or any server-side feature (API routes, forms)
+- `docs/accessibility-checklist.md` — check before shipping nav, dark mode,
+  or blog rendering changes
+
+---
+
 ## What does NOT exist yet (planned future work)
 
 - Projects / side-projects section
