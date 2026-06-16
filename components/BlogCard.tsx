@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { slugifyTag, getTagColorClasses } from "@/lib/tags";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 
 interface BlogCardProps {
   slug: string;
@@ -21,11 +21,7 @@ export default function BlogCard({
   tags,
   readingTime,
 }: BlogCardProps) {
-  const formatted = new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formatted = formatDate(date);
 
   return (
     <Card className="p-6 hover:shadow-md hover:border-blue-100 transition-all flex flex-col gap-3">

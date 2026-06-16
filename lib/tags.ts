@@ -67,3 +67,7 @@ export function getTagColorClasses(tag: string): string {
   const category = TAG_CATEGORIES[tag];
   return category ? LIGHT_COLORS[category] : DEFAULT_LIGHT;
 }
+
+export function findTagBySlug(slug: string): string | undefined {
+  return getAllTags().find((t) => slugifyTag(t) === slug);
+}

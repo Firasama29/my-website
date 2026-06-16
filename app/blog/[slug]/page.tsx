@@ -7,7 +7,7 @@ import TableOfContents from "@/components/TableOfContents";
 import CodeBlock from "@/components/CodeBlock";
 import PostNavigation from "@/components/PostNavigation";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 
 const MIN_HEADINGS_FOR_TOC = 3;
 
@@ -35,11 +35,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   const { previous, next } = getAdjacentPosts(slug);
   const showToc = post.headings.length >= MIN_HEADINGS_FOR_TOC;
 
-  const formatted = new Date(post.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formatted = formatDate(post.date);
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">

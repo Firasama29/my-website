@@ -1,4 +1,5 @@
 import { getRecentRepos, getContributionCalendar, GitHubDay } from "@/lib/github";
+import { formatDate } from "@/lib/utils";
 
 const GITHUB_USERNAME = "firasama29";
 
@@ -179,7 +180,7 @@ export default async function GitHubActivity() {
                     ) : (
                       <span />
                     )}
-                    <span>{formatDate(repo.pushed_at)}</span>
+                    <span>{formatDate(repo.pushed_at, "short")}</span>
                   </div>
                 </a>
               ))}
@@ -200,12 +201,4 @@ export default async function GitHubActivity() {
       </div>
     </section>
   );
-}
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
 }
