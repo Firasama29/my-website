@@ -35,7 +35,7 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  Live demo
+                  Live demo<span className="sr-only"> (opens in new tab)</span>
                 </a>
                 {project.repo && (
                   <a
@@ -44,7 +44,7 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
                   >
-                    GitHub
+                    GitHub<span className="sr-only"> (opens in new tab)</span>
                   </a>
                 )}
               </div>

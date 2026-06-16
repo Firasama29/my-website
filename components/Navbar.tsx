@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export default function Navbar({ themeToggle }: { themeToggle?: ReactNode }) {
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 shadow-sm">
+    <nav aria-label="Main navigation" className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 shadow-sm">
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link
           href="/"

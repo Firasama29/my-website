@@ -75,7 +75,7 @@ export default async function GitHubActivity() {
                 rel="noopener noreferrer"
                 className="text-sm text-green-700 dark:text-[#39d353] hover:underline"
               >
-                {GITHUB_USERNAME} →
+                {GITHUB_USERNAME} →<span className="sr-only"> (opens in new tab)</span>
               </a>
             </div>
 
@@ -154,6 +154,7 @@ export default async function GitHubActivity() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-sm p-5 flex flex-col hover:shadow-md hover:border-green-100 dark:hover:border-green-800 transition-all"
+                  aria-label={`${repo.name} repository (opens in new tab)`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <h3 className="font-semibold text-slate-800 dark:text-slate-100 text-sm truncate">
@@ -191,7 +192,7 @@ export default async function GitHubActivity() {
                 rel="noopener noreferrer"
                 className="text-green-700 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 text-sm font-medium"
               >
-                View full GitHub profile →
+                View full GitHub profile →<span className="sr-only"> (opens in new tab)</span>
               </a>
             </div>
           </>
