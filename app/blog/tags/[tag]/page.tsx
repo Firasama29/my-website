@@ -1,5 +1,5 @@
 import { getAllPosts } from "@/lib/posts";
-import { getAllTags, slugifyTag, getTagColorClasses } from "@/lib/tags";
+import { getAllTags, slugifyTag, getTagColorClasses, findTagBySlug } from "@/lib/tags";
 import BlogCard from "@/components/BlogCard";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: PageProps<"/blog/tags/[tag]">) {
   const { tag } = await props.params;
-  const matchedTag = getAllTags().find((t) => slugifyTag(t) === tag);
+  const matchedTag = findTagBySlug(tag);
   if (!matchedTag) return {};
 
   return {
@@ -23,7 +23,7 @@ export async function generateMetadata(props: PageProps<"/blog/tags/[tag]">) {
 
 export default async function BlogTagPage(props: PageProps<"/blog/tags/[tag]">) {
   const { tag } = await props.params;
-  const matchedTag = getAllTags().find((t) => slugifyTag(t) === tag);
+  const matchedTag = findTagBySlug(tag);
 
   if (!matchedTag) notFound();
 

@@ -7,6 +7,10 @@ import remarkHtml from "remark-html";
 
 const postsDir = path.join(process.cwd(), "content/posts");
 
+function computeReadingTime(content: string): number {
+  return Math.ceil(content.trim().split(/\s+/).length / 200);
+}
+
 export interface PostMeta {
   slug: string;
   title: string;
@@ -35,7 +39,7 @@ export function getAllPosts(): PostMeta[] {
       const slug = filename.replace(/\.md$/, "");
       const raw = fs.readFileSync(path.join(postsDir, filename), "utf8");
       const { data, content } = matter(raw);
-      const readingTime = Math.ceil(content.trim().split(/\s+/).length / 200);
+      const readingTime = computeReadingTime(content);
 
       return {
         slug,

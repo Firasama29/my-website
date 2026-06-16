@@ -4,3 +4,14 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function formatDate(
+  date: string | Date,
+  monthStyle: "long" | "short" = "long"
+): string {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: monthStyle,
+    day: "numeric",
+  });
+}
