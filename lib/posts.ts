@@ -129,7 +129,7 @@ export function getRelatedPosts(slug: string, tags: string[]): PostMeta[] {
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
-    .map(({ score: _score, ...p }) => p);
+    .map((item) => { const { score, ...p } = item; void score; return p; });
 }
 
 export { getAllTags } from "@/lib/tags";

@@ -17,7 +17,7 @@ function getCellClass(level: number): string {
 }
 
 function getLevel(count: number, max: number): number {
-  if (count === 0 || max === 0) return 0;
+  if (count === 0 || max <= 0) return 0;
   const ratio = count / max;
   if (ratio < 0.25) return 1;
   if (ratio < 0.5) return 2;
