@@ -147,13 +147,19 @@ Do not add database or network calls here — this is a static site; all data co
 
 ---
 
+## Quality Checklists
+
+- `docs/security-checklist.md` — check before adding dependencies, external
+  links, or any server-side feature (API routes, forms)
+- `docs/accessibility-checklist.md` — check before shipping nav, dark mode,
+  or blog rendering changes
+
+---
+
 ## What does NOT exist yet (planned future work)
 
-- Projects / side-projects section
 - Blog images (articles referencing GitHub-hosted images will have broken image links until images are copied to `public/` and paths updated)
-- Dark mode
 - LinkedIn link in Contact section
 - **Dedicated About section** — fuller bio beyond the hero tagline; include photo, background story, what drives you (2-3 paragraphs)
-- **GitHub activity / stats section** — embed contribution graph or stats badge to show active development
 - **Resume / CV download** — a downloadable PDF linked from the hero or nav
 - **CI/CD pipeline** — GitHub Actions workflow that runs `npm run build` on every PR to catch build failures before merge
