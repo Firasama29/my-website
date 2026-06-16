@@ -31,7 +31,7 @@ export default function Contact() {
                 GitHub
               </p>
               <p className="text-slate-700 dark:text-slate-300 font-medium group-hover:text-blue-600 transition-colors">
-                github.com/Firasama29
+                github.com/Firasama29<span className="sr-only"> (opens in new tab)</span>
               </p>
             </div>
           </a>

@@ -19,7 +19,7 @@ export default function MobileNav() {
         <span className="sr-only">Open menu</span>
       </SheetTrigger>
       <SheetContent>
-        <nav className="flex flex-col gap-1 px-6 pt-14">
+        <nav aria-label="Mobile navigation" className="flex flex-col gap-1 px-6 pt-14">
           {navLinks.map(({ href, label }) => (
             <SheetClose key={href} asChild>
               <Link
