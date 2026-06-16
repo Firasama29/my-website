@@ -33,7 +33,8 @@ export async function getRecentRepos(): Promise<GitHubRepo[]> {
     );
 
     if (!res.ok) return [];
-    return await res.json();
+    const data = await res.json();
+    return Array.isArray(data) ? (data as GitHubRepo[]) : [];
   } catch {
     return [];
   }
