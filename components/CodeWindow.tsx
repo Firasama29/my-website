@@ -108,9 +108,7 @@ function buildJavaHtml(): string {
   const kw  = (t: string) => `<span class="${styles.kw}">${t}</span>`;
   const tp  = (t: string) => `<span class="${styles.tp}">${t}</span>`;
   const str = (t: string) => `<span class="${styles.str}">${t}</span>`;
-  const cm  = (t: string) => `<span class="${styles.cm}">${t}</span>`;
   const cls = (t: string) => `<span class="${styles.cls}">${t}</span>`;
-  const fn  = (t: string) => `<span class="${styles.fn}">${t}</span>`;
   const num = (t: string) => `<span class="${styles.num}">${t}</span>`;
 
   return [
