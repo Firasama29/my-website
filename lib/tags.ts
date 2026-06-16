@@ -1,3 +1,9 @@
+import { getAllPosts } from "@/lib/posts";
+
+export function getAllTags(): string[] {
+  return [...new Set(getAllPosts().flatMap((p) => p.tags))].sort();
+}
+
 export function slugifyTag(tag: string): string {
   return tag.toLowerCase().replace(/\s+/g, "-");
 }

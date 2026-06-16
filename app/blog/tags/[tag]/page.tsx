@@ -1,5 +1,5 @@
-import { getAllPosts, getAllTags } from "@/lib/posts";
-import { slugifyTag, getTagColorClasses } from "@/lib/tags";
+import { getAllPosts } from "@/lib/posts";
+import { getAllTags, slugifyTag, getTagColorClasses } from "@/lib/tags";
 import BlogCard from "@/components/BlogCard";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";

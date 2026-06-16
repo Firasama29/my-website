@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./Hero.module.css";
-import CodeWindow from "./CodeWindow";
+import CodeWindow from "@/components/CodeWindow";
 
 export default function Hero() {
   return (

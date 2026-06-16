@@ -1,4 +1,5 @@
-import { getAllPosts, getAllTags } from "@/lib/posts";
+import { getAllPosts } from "@/lib/posts";
+import { getAllTags } from "@/lib/tags";
 import BlogList from "@/components/BlogList";
 import BlogPagination from "@/components/BlogPagination";
 

@@ -132,11 +132,9 @@ export function getRelatedPosts(slug: string, tags: string[]): PostMeta[] {
     .map(({ score: _score, ...p }) => p);
 }
 
-export function getAllTags(): string[] {
-  return [...new Set(getAllPosts().flatMap((p) => p.tags))].sort();
-}
+export { getAllTags } from "@/lib/tags";
 
-export interface AdjacentPosts {
+interface AdjacentPosts {
   previous: PostMeta | null;
   next: PostMeta | null;
 }
