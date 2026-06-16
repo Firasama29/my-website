@@ -16,8 +16,11 @@ export default function Navbar({ themeToggle }: { themeToggle?: ReactNode }) {
           <Link href="/#about" className="hover:text-blue-600 transition-colors">
             About
           </Link>
-          <Link href="/#skills" className="hover:text-blue-600 transition-colors">
-            Skills
+          <Link href="/#stack" className="hover:text-blue-600 transition-colors">
+            My Stack
+          </Link>
+          <Link href="/#projects" className="hover:text-blue-600 transition-colors">
+            Projects
           </Link>
           <Link href="/blog" className="hover:text-blue-600 transition-colors">
             Blog
