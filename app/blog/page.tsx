@@ -1,5 +1,5 @@
 import { getAllPosts } from "@/lib/posts";
-import { getAllTags } from "@/lib/tags";
+import { getAllTags, findTagBySlug } from "@/lib/tags";
 import BlogList from "@/components/BlogList";
 import BlogPagination from "@/components/BlogPagination";
 
@@ -13,9 +13,15 @@ const POSTS_PER_PAGE = 9;
 export default async function BlogPage(props: PageProps<"/blog">) {
   const searchParams = await props.searchParams;
   const pageParam = Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page;
+  const tagParam  = Array.isArray(searchParams.tag)  ? searchParams.tag[0]  : searchParams.tag;
 
-  const posts = getAllPosts();
-  const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+  const allPosts = getAllPosts();
+  const matchedTag = tagParam ? findTagBySlug(tagParam) : undefined;
+  const filteredPosts = matchedTag
+    ? allPosts.filter((p) => p.tags.includes(matchedTag))
+    : allPosts;
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
 
   const requestedPage = Number(pageParam);
   const currentPage =
@@ -24,11 +30,11 @@ export default async function BlogPage(props: PageProps<"/blog">) {
       : 1;
 
   const start = (currentPage - 1) * POSTS_PER_PAGE;
-  const paginatedPosts = posts.slice(start, start + POSTS_PER_PAGE);
+  const paginatedPosts = filteredPosts.slice(start, start + POSTS_PER_PAGE);
 
   const tags = getAllTags();
   const tagCounts = Object.fromEntries(
-    tags.map((tag) => [tag, posts.filter((p) => p.tags.includes(tag)).length])
+    tags.map((tag) => [tag, allPosts.filter((p) => p.tags.includes(tag)).length])
   );
 
   return (
@@ -37,8 +43,8 @@ export default async function BlogPage(props: PageProps<"/blog">) {
       <p className="text-slate-500 dark:text-slate-400 mb-10">
         Thoughts on Java, backend engineering, and software development.
       </p>
-      <BlogList posts={paginatedPosts} tags={tags} tagCounts={tagCounts} />
-      <BlogPagination currentPage={currentPage} totalPages={totalPages} />
+      <BlogList posts={paginatedPosts} tags={tags} tagCounts={tagCounts} activeTag={tagParam} />
+      <BlogPagination currentPage={currentPage} totalPages={totalPages} activeTag={tagParam} />
     </div>
   );
 }
