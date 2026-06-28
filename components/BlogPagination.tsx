@@ -3,6 +3,7 @@ import Link from "next/link";
 interface BlogPaginationProps {
   currentPage: number;
   totalPages: number;
+  activeTag?: string;
 }
 
 const linkClasses =
@@ -11,10 +12,17 @@ const activeClasses = "px-4 py-1.5 text-sm rounded-lg bg-blue-600 text-white";
 const disabledClasses =
   "px-4 py-1.5 text-sm rounded-lg border border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed";
 
-export default function BlogPagination({ currentPage, totalPages }: BlogPaginationProps) {
+export default function BlogPagination({ currentPage, totalPages, activeTag }: BlogPaginationProps) {
   if (totalPages <= 1) return null;
 
-  const pageHref = (page: number) => (page === 1 ? "/blog" : `/blog?page=${page}`);
+  const pageHref = (page: number) => {
+    const params = new URLSearchParams();
+    if (activeTag) params.set("tag", activeTag);
+    if (page > 1) params.set("page", String(page));
+    const qs = params.toString();
+    return qs ? `/blog?${qs}` : "/blog";
+  };
+
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
