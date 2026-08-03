@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 const navLinks = [
   { href: "/#about", label: "About" },
@@ -20,6 +27,10 @@ export default function MobileNav() {
         <span className="sr-only">Open menu</span>
       </SheetTrigger>
       <SheetContent>
+        <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+        <SheetDescription className="sr-only">
+          Links to sections of the site: About, My Stack, Projects, Blog, and Contact.
+        </SheetDescription>
         <nav aria-label="Mobile navigation" className="flex flex-col gap-1 px-6 pt-14">
           {navLinks.map(({ href, label }) => (
             <SheetClose key={href} asChild>
