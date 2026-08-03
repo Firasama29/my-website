@@ -22,7 +22,7 @@ const navLinks = [
 export default function MobileNav() {
   return (
     <Sheet>
-      <SheetTrigger className="sm:hidden p-2 text-slate-600 hover:text-blue-600 transition-colors rounded-md">
+      <SheetTrigger className="sm:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors rounded-md">
         <Menu className="h-5 w-5" />
         <span className="sr-only">Open menu</span>
       </SheetTrigger>
@@ -36,7 +36,7 @@ export default function MobileNav() {
             <SheetClose key={href} asChild>
               <Link
                 href={href}
-                className="text-base font-medium text-slate-700 hover:text-blue-600 py-3 border-b border-slate-100 last:border-0 transition-colors"
+                className="text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 py-3 border-b border-slate-100 dark:border-slate-700 last:border-0 transition-colors"
               >
                 {label}
               </Link>
