@@ -46,4 +46,20 @@ const SheetContent = React.forwardRef<
 ));
 SheetContent.displayName = "SheetContent";
 
-export { Sheet, SheetTrigger, SheetContent, SheetClose };
+const SheetTitle = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Title ref={ref} className={cn(className)} {...props} />
+));
+SheetTitle.displayName = "SheetTitle";
+
+const SheetDescription = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Description ref={ref} className={cn(className)} {...props} />
+));
+SheetDescription.displayName = "SheetDescription";
+
+export { Sheet, SheetTrigger, SheetContent, SheetClose, SheetTitle, SheetDescription };
