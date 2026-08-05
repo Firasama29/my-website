@@ -27,6 +27,18 @@ describe("getAllPosts", () => {
     }
   });
 
+  test("breaks ties between same-date posts deterministically by slug", () => {
+    const byDate = new Map<string, string[]>();
+    for (const post of getAllPosts()) {
+      byDate.set(post.date, [...(byDate.get(post.date) ?? []), post.slug]);
+    }
+    for (const slugs of byDate.values()) {
+      if (slugs.length > 1) {
+        expect(slugs).toEqual([...slugs].sort((a, b) => a.localeCompare(b)));
+      }
+    }
+  });
+
   test("computes a positive integer reading time for every post", () => {
     for (const post of getAllPosts()) {
       expect(Number.isInteger(post.readingTime)).toBe(true);
