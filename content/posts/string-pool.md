@@ -2,7 +2,7 @@
 title: "String Pool In Java"
 date: "2025-10-13"
 tags: ["Java"]
-excerpt: "Photo by [Bernd 📷 Dittrich](https://unsplash.com/@hdbernd?utmcontent=creditCopyText&utmmedium=referral&utmsource=unsplash) on [Unsplash](https://unsplash.com/p"
+excerpt: "How the Java String pool saves memory, why a String literal differs from one created with new, and when == and .equals() give different results."
 ---
 Press enter or click to view image in full size
 
