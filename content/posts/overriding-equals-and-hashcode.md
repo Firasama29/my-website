@@ -2,7 +2,7 @@
 title: "Why do we need to override equals() and hashcode()?"
 date: "2025-10-03"
 tags: ["Java"]
-excerpt: "### Why does the default equals() method of Object return false when two objects have the same value?"
+excerpt: "Why does the default equals() return false for two objects with the same values? How equals() and hashCode() work, and what breaks if you override only one."
 ---
 or
 

@@ -2,7 +2,7 @@
 title: "How Java Resolves Overridden Methods at Runtime"
 date: "2025-10-03"
 tags: ["Java"]
-excerpt: "<p style='text-align: center;'>Photo by Stefan Heinemann on Unsplash</p>"
+excerpt: "How does Java decide which overridden method to call at runtime? A short look at Dynamic Method Dispatch and run-time polymorphism."
 ---
 ![img_1.png](../images/img_1.png)
 <p style="text-align: center;">Photo by Stefan Heinemann on Unsplash</p>
